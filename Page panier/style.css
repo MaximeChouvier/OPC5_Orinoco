@@ -1,0 +1,23 @@
+body, html{
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffc482;
+}
+#navbar{
+    width: 100%;
+    height: 60px;
+    background-color: #3e2a35 ;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#logo{
+    height: 30px;
+    width: 110px;
+}
+.navlink{
+    color: #4DA89F;
+    font-size: 18px;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
