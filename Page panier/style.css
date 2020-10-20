@@ -19,5 +19,54 @@ body, html{
     color: #4DA89F;
     font-size: 18px;
     text-decoration: none;
+}
+.font{
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+.headTitle{
+    color: #4DA89F;
+    text-align: center;
+}
+.testPreview{
+    height: 50px;
+    width: 50px;
+    border: 2px #3e2a35 solid;
+    background-color: #f0a65b;
+    box-shadow: 0px 3px 7px 4px #3e2a35;
+    padding: 2px;
+    border-radius: 2px;
+}
+.cartWrapper{
+    border: 2px rgb(0, 229, 255) solid;
+    display: flex;
+}
+.cartCollumn{
+    display: flex;
+    flex-direction: column;
+}
+.productImage{
+    border: 2px purple solid;
+    max-width: 20%;
+}
+.productName{
+    border: 2px red solid;
+    max-width: 50%;
+}
+.productPrice{
+    border: 2px blue solid;
+    max-width: 30%;
+}
+.cartTotalPrice{
+    border: 2px white solid;
+}
+.testName{
+    color: #3e2a35;
+    font-size: 15px;
+}
+.testPrice{
+    color: #175676;
+    font-size: 16px;
+}
+.testTotal{
+    color: #4DA89F;
 }
