@@ -19,7 +19,13 @@ body, html{
     color: #4DA89F;
     font-size: 18px;
     text-decoration: none;
+}
+.font{
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+.headTitle{
+    color:#4DA89F;
+    text-align: center;
 }
 .productList_wrapper{
     display: flex;
@@ -62,4 +68,75 @@ body, html{
     border-bottom: 2px #3e2a35 solid;
     border-radius: 2px;
     margin: 5px;
+}
+/* Page produit */
+.productForm{
+    display: flex;
+    justify-content: space-around;
+}
+.checkboxImage{
+    height: 90px;
+    width: 90px;
+    padding: 5px;
+    border: 2px #3e2a35 solid;
+    background-color: #f0a65b;
+    border-radius: 2px;
+    box-shadow: 0px 3px 7px 4px #3e2a35;
+}
+[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+[type=radio] + img {
+    cursor: pointer;
+}
+[type=radio]:checked + img {
+    border: 2px solid #f00!important;
+    background-color: #ff6347;
+}
+/* Page panier */
+.testPreview{
+    height: 50px;
+    width: 50px;
+    border: 2px #3e2a35 solid;
+    background-color: #f0a65b;
+    box-shadow: 0px 3px 7px 4px #3e2a35;
+    padding: 2px;
+    border-radius: 2px;
+}
+.cartWrapper{
+    border: 2px rgb(0, 229, 255) solid;
+    display: flex;
+}
+.cartCollumn{
+    display: flex;
+    flex-direction: column;
+}
+.cartImage{
+    border: 2px purple solid;
+    max-width: 20%;
+}
+.cartName{
+    border: 2px red solid;
+    max-width: 50%;
+}
+.cartPrice{
+    border: 2px blue solid;
+    max-width: 30%;
+}
+.cartTotal{
+    border: 2px white solid;
+}
+.testName{
+    color: #3e2a35;
+    font-size: 15px;
+}
+.testPrice{
+    color: #175676;
+    font-size: 16px;
+}
+.cartTotal{
+    color: #4DA89F;
 }
