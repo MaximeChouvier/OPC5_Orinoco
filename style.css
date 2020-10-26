@@ -59,6 +59,10 @@ body, html{
     color: #3e2a35;
     font-size: 13px;
 }
+.teddyColors{
+    color: #55434d;
+    font-size: 12px;
+}
 .productList_wrapper_left, .productList_wrapper_right{
     max-width: 50%;
     max-height: 50%;
