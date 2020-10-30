@@ -10,9 +10,6 @@
             <a class="navlink" href="../index.html">
                 <img src="../images/Logo.png"  id="logo">
             </a>
-            <a class="navlink productLink font" href="../SubPages/produits.html">
-                Produits
-            </a>
             <a class="navlink cartLink font" href="../SubPages/panier.html">
                 Panier
             </a>
@@ -21,25 +18,51 @@
 
     <body>
         <script type="text/javascript" src="../produit.js" onload="request.onreadystatechange()"></script>
-        <h1 class="headTitle font">
-            Veuillez choisir un de nos produits
-        </h1>
-        <section class="productForm">
-            <form>
-                <label>
-                    <input type="radio" name="products">
-                    <img src="../images/teddyPreview.png" class="checkboxImage teddyImage">
-                  </label>
-                  
-                  <label>
-                    <input type="radio" name="products">
-                    <img src="../images/cameraPreview.png" class="checkboxImage teddyImage">
-                  </label>
-                  <label>
-                    <input type="radio" name="products">
-                    <img src="../images/meublePreview.png" class="checkboxImage teddyImage">
-                  </label>
-              </form>
-        </section>
-    </body>
+
+        <div class="productContainer">
+            <div class="productContainer_upper">
+                <div class="upper_left">
+                    <img src="../images/teddyPreview.png" class="productPreview teddyImage">
+                </div>
+                <div class="upper_right">
+                    <h1 class="productTitle underline font teddyName">
+                       Titre
+                    </h1>
+                    <p class="productDescription underline font teddyColors">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+            <div class="productContainer_lower">
+                <div class="lower_up">
+                    <p class="productColors underline font teddyColors">
+                        Couleurs :
+                    </p>
+                    <form>
+                        <input type="radio" name="colors" value="color1" class="colorChoice">
+                        <label for="color1" class="colorChoice_label font">couleur 1</label>
+
+                        <input type="radio" name="colors" value="color2" class="colorChoice">
+                        <label for="color2" class="colorChoice_label font">couleur 2</label>
+
+                        <input type="radio" name="colors" value="color2" class="colorChoice">
+                        <label for="color3" class="colorChoice_label font">couleur 3</label>
+
+                        <input type="radio" name="colors" value="color2" class="colorChoice font">
+                        <label for="color4" class="colorChoice_label font">couleur 4</label>
+                    </form>
+                </div>
+                <div class="lower_low_left">
+                    <h2 class="productPrice font">
+                        Prix : 2943 €
+                    </h2>
+                </div>
+                <div class="lower_low_right">
+                    <button class="cartButton font">
+                        Ajouter au panier
+                    </button>
+                </div>
+            </div>
+
+        </div>
 </html>

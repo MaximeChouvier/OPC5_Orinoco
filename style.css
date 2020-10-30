@@ -74,31 +74,33 @@ body, html{
     margin: 5px;
 }
 /* Page produit */
-.productForm{
+.productContainer_lower{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
-.checkboxImage{
-    height: 90px;
-    width: 90px;
-    padding: 5px;
-    border: 2px #3e2a35 solid;
-    background-color: #f0a65b;
-    border-radius: 2px;
-    box-shadow: 0px 3px 7px 4px #3e2a35;
+.cartButton{
+    margin-top: 17px;
 }
-[type=radio] { 
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
+.colorChoice_label{
+    color: #55434d;
+    font-size: 12px;
 }
-[type=radio] + img {
-    cursor: pointer;
+.productContainer_upper{
+    display: flex;
+    justify-content: space-evenly;
+    border: 2px red solid;
 }
-[type=radio]:checked + img {
-    border: 2px solid #f00!important;
-    background-color: #ff6347;
+.productContainer_lower{
+    border: 2px blue solid;
+}
+
+[type=radio] + label{
+  cursor: pointer;
+}
+
+[type=radio]:checked + label{
+  outline: 2px solid #f00;
 }
 /* Page panier */
 .testPreview{
