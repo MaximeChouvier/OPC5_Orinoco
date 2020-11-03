@@ -11,8 +11,11 @@ request.onreadystatechange = function() {
         function injection(response){
             let parentDiv = document.getElementById("javascript__injection")
 
-            let productList_wrapper = document.createElement("div");
-            productList_wrapper.className = ("productList_wrapper");
+            let productList_wrapper = document.createElement("a");
+            productList_wrapper.className = ("productList_wrapper productWrapperLink");
+            productList_wrapper.href =  ("./subPages/produits.html");
+            
+            
 
             let productList_wrapper_left = document.createElement("div");
             productList_wrapper_left.className = ("productList_wrapper_left");

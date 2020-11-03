@@ -6,6 +6,7 @@ request.onreadystatechange = function() {
         var response = JSON.parse(this.responseText);
         console.log(response)
 
+        
         response.forEach(injection)
 
         function injection(response){
@@ -95,7 +96,7 @@ request.onreadystatechange = function() {
             let colorChoice4_label = document.createElement("label");
             colorChoice3_label.type = ("radio");
             colorChoice3_label.name = ("colors");
-            colorChoice3_label.value = ("color3");
+            colorChoice3_label.value = ("color4");
             colorChoice3_label.className = ("colorChoice");
             colorChoice4_label.innerHTML = response.colors[3];
 
@@ -142,7 +143,7 @@ request.onreadystatechange = function() {
             lower_low_right.appendChild(cartButton);
         }
 
-
+        
 
         
     }

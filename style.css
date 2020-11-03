@@ -20,6 +20,10 @@ body, html{
     font-size: 18px;
     text-decoration: none;
 }
+.productWrapperLink{
+    text-decoration: none;
+}
+
 .font{
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
