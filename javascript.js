@@ -14,47 +14,51 @@ request.onreadystatechange = function() {
             
             let parentDiv = document.createElement("div");
 
-            itemTitle(item, parentDiv);
-            itemPrice(item, parentDiv);
-            itemDescription(item, parentDiv);
-            itemImage(item, parentDiv);
-            itemCustomChoices(item, parentDiv);
+            
+            
             
 
-            addAllElementstoParent(item, parentDiv);
+            createAllElements.addAllElementstoParent(Elements);
 
             wrapperDiv.appendChild(parentDiv);
         };
     };
 };
 
-function itemTitle(item, parentDiv){
+function itemTitle(item){
     let itemTitle = document.createElement("h1");
     itemTitle.className = ("productTitle underline font teddyName");
-    itemTitle.innerHTML = response.name;
+    itemTitle.innerHTML = item.name;
 };
-function itemPrice(item, parentDiv){
+function itemPrice(item){
     let itemPrice = document.createElement("h2");
     itemPrice.className = ("productPrice");
-    itemPrice.innerHTML = response.price + " €"
+    itemPrice.innerHTML = item.price + " €"
 };
-function itemImage(item, parentDiv){
+function itemImage(item){
     let itemImage = document.createElement("img");
     itemImage.className = ("productPreview");
-    itemImage.src = response.imageUrl;
+    itemImage.src = item.imageUrl;
 };
-function itemDescription(item, parentDiv){
+function itemDescription(item){
     let itemDescription = document.createElement('p');
-    itemDescription.innerHTML = response.description;
+    itemDescription.innerHTML = item.description;
     itemDescription.className = 'productDescription underline font teddyDesc';
 };
-function itemCustomChoices(item, parentDiv){
+function itemCustomChoices(item){
     let itemCustomChoices = document.createElement('p');
-    itemCustomChoices.innerHTML = ("Couleurs : ") + response.colors;
+    itemCustomChoices.innerHTML = ("Couleurs : ") + item.colors;
     itemCustomChoices.className = 'productColors underline font teddyColors';
 };
-function addAllElementstoParent(item, parentDiv){
-    parentDiv.appendChild(item);
+function createAllElements(Elements) {
+    itemTitle(item, parentDiv);
+    itemPrice(item, parentDiv);
+    itemDescription(item, parentDiv);
+    itemImage(item, parentDiv);
+    itemCustomChoices(item, parentDiv);
+};
+function addAllElementstoParent(Elements){
+    Elements.appendChild(parentDiv);
 };
 
 request.open("GET", "http://localhost:3000/api/teddies");
