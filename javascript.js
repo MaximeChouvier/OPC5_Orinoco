@@ -14,44 +14,48 @@ request.onreadystatechange = function() {
             
             let parentDiv = document.createElement("div");
 
+            itemTitle(item, parentDiv);
+            itemPrice(item, parentDiv);
+            itemDescription(item, parentDiv);
+            itemImage(item, parentDiv);
+            itemCustomChoices(item, parentDiv);
             
-
-            function itemTitle(item, parentDiv){
-                let itemTitle = document.createElement("h1");
-                itemTitle.className = ("productTitle underline font teddyName");
-                itemTitle.innerHTML = response.name;
-            }
-            function itemPrice(item, parentDiv){
-                let itemPrice = document.createElement("h2");
-                itemPrice.className = ("productPrice");
-                itemPrice.innerHTML = response.price + " €"
-            }
-            function itemImage(item, parentDiv){
-                let itemImage = document.createElement("img");
-                itemImage.className = ("productPreview");
-                itemImage.src = response.imageUrl;
-            }
-            function itemDescription(item, parentDiv){
-                let itemDescription = document.createElement('p');
-                itemDescription.innerHTML = response.description;
-                itemDescription.className = 'productDescription underline font teddyDesc';
-            }
-            function itemCustomChoices(item, parentDiv){
-                let itemCustomChoices = document.createElement('p');
-                itemCustomChoices.innerHTML = ("Couleurs : ") + response.colors;
-                itemCustomChoices.className = 'productColors underline font teddyColors';
-            }
 
             addAllElementstoParent(item, parentDiv);
 
             wrapperDiv.appendChild(parentDiv);
-        }
-    }
+        };
+    };
 };
 
+function itemTitle(item, parentDiv){
+    let itemTitle = document.createElement("h1");
+    itemTitle.className = ("productTitle underline font teddyName");
+    itemTitle.innerHTML = response.name;
+};
+function itemPrice(item, parentDiv){
+    let itemPrice = document.createElement("h2");
+    itemPrice.className = ("productPrice");
+    itemPrice.innerHTML = response.price + " €"
+};
+function itemImage(item, parentDiv){
+    let itemImage = document.createElement("img");
+    itemImage.className = ("productPreview");
+    itemImage.src = response.imageUrl;
+};
+function itemDescription(item, parentDiv){
+    let itemDescription = document.createElement('p');
+    itemDescription.innerHTML = response.description;
+    itemDescription.className = 'productDescription underline font teddyDesc';
+};
+function itemCustomChoices(item, parentDiv){
+    let itemCustomChoices = document.createElement('p');
+    itemCustomChoices.innerHTML = ("Couleurs : ") + response.colors;
+    itemCustomChoices.className = 'productColors underline font teddyColors';
+};
 function addAllElementstoParent(item, parentDiv){
     parentDiv.appendChild(item);
-}
+};
 
 request.open("GET", "http://localhost:3000/api/teddies");
 request.send();
