@@ -8,49 +8,54 @@ request.onreadystatechange = function() {
 
         response.forEach(injectSingleItem);
 
-        let wrapperDiv = document.getElementById("javascript__injection");
+        
 
         function injectSingleItem(item){
-            
+            let wrapperDiv = document.getElementById("javascript__injection");
             let parentDiv = document.createElement("div");
 
             
             
             
 
-            createAllElements.addAllElementstoParent(Elements);
+            createAllElements(item, parentDiv);
+            
 
             wrapperDiv.appendChild(parentDiv);
         };
     };
 };
-
-function itemTitle(item){
+function itemTitle(item, parentDiv){
     let itemTitle = document.createElement("h1");
     itemTitle.className = ("productTitle underline font teddyName");
     itemTitle.innerHTML = item.name;
+    parentDiv.appendChild(itemTitle);
 };
-function itemPrice(item){
+function itemPrice(item, parentDiv){
     let itemPrice = document.createElement("h2");
     itemPrice.className = ("productPrice");
     itemPrice.innerHTML = item.price + " €"
+    parentDiv.appendChild(itemPrice)
 };
-function itemImage(item){
+function itemImage(item, parentDiv){
     let itemImage = document.createElement("img");
     itemImage.className = ("productPreview");
     itemImage.src = item.imageUrl;
+    parentDiv.appendChild(itemImage)
 };
-function itemDescription(item){
+function itemDescription(item, parentDiv){
     let itemDescription = document.createElement('p');
     itemDescription.innerHTML = item.description;
     itemDescription.className = 'productDescription underline font teddyDesc';
+    parentDiv.appendChild(itemDescription)
 };
-function itemCustomChoices(item){
+function itemCustomChoices(item, parentDiv){
     let itemCustomChoices = document.createElement('p');
     itemCustomChoices.innerHTML = ("Couleurs : ") + item.colors;
     itemCustomChoices.className = 'productColors underline font teddyColors';
+    parentDiv.appendChild(itemCustomChoices)
 };
-function createAllElements(Elements) {
+function createAllElements(item, parentDiv) {
     itemTitle(item, parentDiv);
     itemPrice(item, parentDiv);
     itemDescription(item, parentDiv);
