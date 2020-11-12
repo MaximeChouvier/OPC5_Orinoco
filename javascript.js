@@ -8,13 +8,11 @@ request.onreadystatechange = function() {
 
         response.forEach(injectSingleItem);
 
-        
-
         function injectSingleItem(item){
             let wrapperDiv = document.getElementById("javascript__injection");
             let parentDiv = document.createElement("a");
             parentDiv.className = ("productList_wrapper productWrapperLink")
-            parentDiv.href = ("#")
+            parentDiv.href = ("./SubPages/produits.html?") + item._id;
             
             let leftWrapper = document.createElement("div");
             leftWrapper.className = ("productList_wrapper_left");
@@ -26,7 +24,6 @@ request.onreadystatechange = function() {
             
             createAllElements(item, parentDiv, leftWrapper, rightWrapper);
             
-
             wrapperDiv.appendChild(parentDiv);
         };
     };
