@@ -7,7 +7,10 @@ request.onreadystatechange = function() {
         console.log(response)
 
         
-        injection(response)
+        let productId = productDependingOnParameter(response);
+        console.log(productId);
+        sendRequest(productId)
+        injection(response);
 
         function injection(response){
             let parentDiv = document.getElementById("javascript__injection");
@@ -162,22 +165,24 @@ request.onreadystatechange = function() {
     }
 };
 
-function itemDependingOnUrl(item, url){
-    if (item[0]._id == url) {
-        console.log = ("item1")
-    } else if (item[1]._id === url){
-        console.log = ("item2")
-    } else if (item[2]._id === url){
-        console.log = ("item3")
-    } else if (item[3]._id === url){
-        console.log = ("item4")
-    } else if (item[4]._id === url){
-        console.log = ("item5")
-    } else{
-        console.log =("failed")
+function productDependingOnParameter(response){
+    let currentUrlParameter = window.location.search.substr(1);
+    console.log(currentUrlParameter);
+
+    if (currentUrlParameter === response[0]._id){
+        return response[0]._id;
+    } else if (currentUrlParameter === response[1]._id) {
+        return response[1]._id;
+    } else if (currentUrlParameter === response[2]._id) {
+        return response[2]._id;
+    } else if (currentUrlParameter === response[3]._id) {
+        return response[3]._id;
+    } else if (currentUrlParameter === response[4]._id) {
+        return response[4]._id;
+    } else {
     }
 }
-
-
-request.open("GET", "http://localhost:3000/api/teddies/5be9c8541c9d440000665243");
-request.send();
+function sendRequest (productId){
+    request.open("GET", "http://localhost:3000/api/teddies/" + (productId));
+    request.send();
+}
