@@ -1,20 +1,15 @@
 var request = new XMLHttpRequest();
 
 request.onreadystatechange = function() {
-    
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
         var response = JSON.parse(this.responseText);
         console.log(response)
-
         
-        let productId = productDependingOnParameter(response);
-        console.log(productId);
-        sendRequest(productId)
+        
         injection(response);
 
         function injection(response){
             let parentDiv = document.getElementById("javascript__injection");
-
             let productContainer = document.createElement("div");
             productContainer.className = ("productContainer");
             let productContainer_upper = document.createElement("div");
@@ -72,71 +67,32 @@ request.onreadystatechange = function() {
                     lower_up.appendChild(productColors);
                 }
 
-                function createColorChoices(response, lower_up){
+                function createForm(){
                     let productForm = document.createElement("form");
                     lower_up.appendChild(productForm);
 
-                    let colorChoice1_input = document.createElement("input");
-                    colorChoice1_input.type = ("radio");
-                    colorChoice1_input.name = ("colors");
-                    colorChoice1_input.value = ("color1");
-                    colorChoice1_input.className = ("colorChoice");
-                    productForm.appendChild(colorChoice1_input);
-                    
-                    let colorChoice1_label = document.createElement("label");
-                    colorChoice1_label.type = ("radio");
-                    colorChoice1_label.name = ("colors");
-                    colorChoice1_label.value = ("color1");
-                    colorChoice1_label.className = ("colorChoice");
-                    colorChoice1_label.innerHTML = response.colors[0];
-                    productForm.appendChild(colorChoice1_label);
+                    let colorLabel = document.createElement("label");
+                    colorLabel.for = ("colorChoices");
+                    productForm.appendChild(colorLabel);
 
-                    let colorChoice2_input = document.createElement("input");
-                    colorChoice2_input.type = ("radio");
-                    colorChoice2_input.name = ("colors");
-                    colorChoice2_input.value = ("color2");
-                    colorChoice2_input.className = ("colorChoice");
-                    productForm.appendChild(colorChoice2_input);
-
-                    let colorChoice2_label = document.createElement("label");
-                    colorChoice2_label.type = ("radio");
-                    colorChoice2_label.name = ("colors");
-                    colorChoice2_label.value = ("color2");
-                    colorChoice2_label.className = ("colorChoice");
-                    colorChoice2_label.innerHTML = response.colors[1];
-                    productForm.appendChild(colorChoice2_label);
-
-                    let colorChoice3_input = document.createElement("input");
-                    colorChoice3_input.type = ("radio");
-                    colorChoice3_input.name = ("colors");
-                    colorChoice3_input.value = ("color3");
-                    colorChoice3_input.className = ("colorChoice");
-                    productForm.appendChild(colorChoice3_input);
-
-                    let colorChoice3_label = document.createElement("label");
-                    colorChoice3_label.type = ("radio");
-                    colorChoice3_label.name = ("colors");
-                    colorChoice3_label.value = ("color3");
-                    colorChoice3_label.className = ("colorChoice");
-                    colorChoice3_label.innerHTML = response.colors[2];
-                    productForm.appendChild(colorChoice3_label);
-
-                    let colorChoice4_input = document.createElement("input");
-                    colorChoice4_input.type = ("radio");
-                    colorChoice4_input.name = ("colors");
-                    colorChoice4_input.value = ("color4");
-                    colorChoice4_input.className = ("colorChoice");
-                    productForm.appendChild(colorChoice4_input);
-
-                    let colorChoice4_label = document.createElement("label");
-                    colorChoice3_label.type = ("radio");
-                    colorChoice3_label.name = ("colors");
-                    colorChoice3_label.value = ("color4");
-                    colorChoice3_label.className = ("colorChoice");
-                    colorChoice4_label.innerHTML = response.colors[3];
-                    productForm.appendChild(colorChoice4_label);
+                    let colorSelect = document.createElement("select");
+                    colorSelect.name = ("colorChoices")
+                    colorSelect.id = ("colorChoices");
+                    productForm.appendChild(colorSelect);
                 }
-                
+                createForm();                
+
+                let colorList = [];
+                colorList = response.colors;
+                console.log ("colorlist contient : " + colorList)
+
+                colorList.forEach(createColorsChoices);
+
+                function createColorsChoices(item){
+                    let colorSelect_option = document.createElement("option");
+                    colorSelect_option.innerHTML = item.colors;
+                }
+
                 function createPrice(response, lower_low_left){
                     let productPrice = document.createElement("h2");
                     productPrice.className = ("productPrice font")
@@ -154,7 +110,6 @@ request.onreadystatechange = function() {
                 createTitle(response, upper_right);
                 createDescription(response, upper_right);
                 createColors(response, lower_up);
-                createColorChoices(response, lower_up);
                 createPrice(response, lower_low_left);
                 createButton(response, lower_low_right)
             }
@@ -165,24 +120,15 @@ request.onreadystatechange = function() {
     }
 };
 
-function productDependingOnParameter(response){
+function productDependingOnParameter(request){
     let currentUrlParameter = window.location.search.substr(1);
-    console.log(currentUrlParameter);
-
-    if (currentUrlParameter === response[0]._id){
-        return response[0]._id;
-    } else if (currentUrlParameter === response[1]._id) {
-        return response[1]._id;
-    } else if (currentUrlParameter === response[2]._id) {
-        return response[2]._id;
-    } else if (currentUrlParameter === response[3]._id) {
-        return response[3]._id;
-    } else if (currentUrlParameter === response[4]._id) {
-        return response[4]._id;
-    } else {
-    }
+    return currentUrlParameter;
 }
-function sendRequest (productId){
-    request.open("GET", "http://localhost:3000/api/teddies/" + (productId));
+
+let productId = productDependingOnParameter();
+sendRequest(request, productId);
+
+function sendRequest (request, productId){
+    request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
     request.send();
 }
