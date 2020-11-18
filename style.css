@@ -83,9 +83,6 @@ body, html{
     flex-wrap: wrap;
     justify-content: space-around;
 }
-.cartButton{
-    margin-top: 17px;
-}
 .colorChoice_label{
     color: #55434d;
     font-size: 12px;
@@ -93,18 +90,11 @@ body, html{
 .productContainer_upper{
     display: flex;
     justify-content: space-evenly;
-    border: 2px red solid;
 }
-.productContainer_lower{
-    border: 2px blue solid;
-}
-
-[type=radio] + label{
-  cursor: pointer;
-}
-
-[type=radio]:checked + label{
-  outline: 2px solid #f00;
+.lower{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 /* Page panier */
 .testPreview{
