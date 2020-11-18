@@ -67,30 +67,29 @@ request.onreadystatechange = function() {
                     lower_up.appendChild(productColors);
                 }
 
-                function createForm(){
+                let colorList = [];
+                colorList = response.colors;
+
+                createColorsChoices(colorList);
+
+                function createColorsChoices(item){
                     let productForm = document.createElement("form");
                     lower_up.appendChild(productForm);
 
-                    let colorLabel = document.createElement("label");
-                    colorLabel.for = ("colorChoices");
-                    productForm.appendChild(colorLabel);
-
                     let colorSelect = document.createElement("select");
-                    colorSelect.name = ("colorChoices")
+                    colorSelect.name = ("colorChoiceList")
                     colorSelect.id = ("colorChoices");
                     productForm.appendChild(colorSelect);
-                }
-                createForm();                
-
-                let colorList = [];
-                colorList = response.colors;
-                console.log ("colorlist contient : " + colorList)
-
-                colorList.forEach(createColorsChoices);
-
-                function createColorsChoices(item){
-                    let colorSelect_option = document.createElement("option");
-                    colorSelect_option.innerHTML = item.colors;
+                    
+                    for (var i = 0; i < item.length; i++){
+                        let colorSelect_option = document.createElement("option");
+                        colorSelect_option.setAttribute("color", item[i]);
+                        colorSelect_option.text = item[i];
+                        colorSelect.appendChild(colorSelect_option);
+                        
+                        colorSelect.appendChild(colorSelect_option); 
+                    }
+                    
                 }
 
                 function createPrice(response, lower_low_left){
