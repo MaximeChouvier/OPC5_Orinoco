@@ -29,8 +29,7 @@ request.onreadystatechange = function() {
         }
     }
 };
-function createAllElements(response, upper_left, upper_right, lower){
-                
+function createAllElements(response, upper_left, upper_right, lower){          
     let colorList = [];
     colorList = response.colors;
 
