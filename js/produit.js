@@ -65,17 +65,21 @@ function createColorsChoices(colorList, lower){
     let colorSelect = document.createElement("select");
     colorSelect.name = ("colorChoiceList");
     colorSelect.id = ("colorChoices");
+    colorSelect.className = ("teddy-colors")
     productForm.appendChild(colorSelect);
+
+    colorSelect.addEventListener("change", (event) => {
+        localStorage.setItem("Orinoco", (event.target.value));
+        console.log(localStorage.getItem("Orinoco"));
+    });
     
     for (var i = 0; i < colorList.length; i++){
         let colorSelect_option = document.createElement("option");
         colorSelect_option.setAttribute("color", colorList[i]);
         colorSelect_option.text = colorList[i];
         colorSelect.appendChild(colorSelect_option);
-        
         colorSelect.appendChild(colorSelect_option); 
     }
-    
 }
 function createPrice(response, lower){
     let productPrice = document.createElement("h2");
@@ -87,6 +91,7 @@ function createButton(lower){
     let cartButton = document.createElement("button");
     cartButton.className = ("cartButton font");
     cartButton.innerHTML = ("Ajouter au panier")
+    cartButton.href = ("./panier.html")
     lower.appendChild(cartButton);
 }
 function appendAllContainers(parentDiv, productContainer, productContainer_upper, lower, upper_left, upper_right){
