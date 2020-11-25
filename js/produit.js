@@ -68,9 +68,18 @@ function createColorsChoices(colorList, lower){
     colorSelect.className = ("teddy-colors")
     productForm.appendChild(colorSelect);
 
-    colorSelect.addEventListener("change", (event) => {
-        localStorage.setItem("Orinoco", (event.target.value));
-        console.log(localStorage.getItem("Orinoco"));
+    colorSelect.addEventListener("change", (event) => {     
+        let storage = JSON.parse(localStorage.getItem("Orinoco"));
+        if (storage === null ){
+            storage = ["test"];
+            storage.push(event.target.value);
+            storage.shift();
+            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+        } else {
+            storage.push(event.target.value);
+            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+        }
+        console.log(localStorage)
     });
     
     for (var i = 0; i < colorList.length; i++){
@@ -108,6 +117,7 @@ function productDependingOnParameter(){
 
 let productId = productDependingOnParameter();
 sendRequest(request, productId);
+
 
 function sendRequest (request, productId){
     request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
