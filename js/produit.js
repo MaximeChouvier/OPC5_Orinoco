@@ -67,27 +67,14 @@ function createColorsChoices(colorList, lower){
     colorSelect.id = ("colorChoices");
     colorSelect.className = ("teddy-colors")
     productForm.appendChild(colorSelect);
-
-    colorSelect.addEventListener("change", (event) => {     
-        let storage = JSON.parse(localStorage.getItem("Orinoco"));
-        if (storage === null ){
-            storage = ["test"];
-            storage.push(event.target.value);
-            storage.shift();
-            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
-        } else {
-            storage.push(event.target.value);
-            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
-        }
-        console.log(localStorage)
-    });
     
     for (var i = 0; i < colorList.length; i++){
         let colorSelect_option = document.createElement("option");
         colorSelect_option.setAttribute("color", colorList[i]);
         colorSelect_option.text = colorList[i];
+        colorSelect_option.className = ("colorSelect_option")
         colorSelect.appendChild(colorSelect_option);
-        colorSelect.appendChild(colorSelect_option); 
+        colorSelect.appendChild(colorSelect_option);
     }
 }
 function createPrice(response, lower){
@@ -96,12 +83,33 @@ function createPrice(response, lower){
     productPrice.innerHTML = response.price + " €"
     lower.appendChild(productPrice);
 }
-function createButton(lower){
+function createButton(lower, productId){
     let cartButton = document.createElement("button");
     cartButton.className = ("cartButton font");
-    cartButton.innerHTML = ("Ajouter au panier")
-    cartButton.href = ("./panier.html")
+    cartButton.id = ("addCartButton");
+    cartButton.innerHTML = ("Ajouter au panier");
+    cartButton.href = ("./panier.html");
     lower.appendChild(cartButton);
+
+    localStorage.clear()
+    document.getElementById("addCartButton").addEventListener("click", function() {
+        let productColor = document.getElementById("colorChoices");
+        let productId = window.location.search.substr(1);
+        let storage = JSON.parse(localStorage.getItem("Orinoco"));
+        
+        if (storage == null){
+            let storage = {id: 123, couleur:"bleu"};
+            storage.id = productId;
+            storage.couleur = productColor.value;
+            console.log(storage)
+            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+        } else {
+            storage.id = productId;
+            storage.couleur = productColor.value;
+            console.log(storage)
+            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+        }
+    });
 }
 function appendAllContainers(parentDiv, productContainer, productContainer_upper, lower, upper_left, upper_right){
     parentDiv.appendChild(productContainer);
@@ -117,7 +125,6 @@ function productDependingOnParameter(){
 
 let productId = productDependingOnParameter();
 sendRequest(request, productId);
-
 
 function sendRequest (request, productId){
     request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
