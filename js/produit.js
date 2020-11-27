@@ -91,23 +91,25 @@ function createButton(lower, productId){
     cartButton.href = ("./panier.html");
     lower.appendChild(cartButton);
 
-    localStorage.clear()
     document.getElementById("addCartButton").addEventListener("click", function() {
         let productColor = document.getElementById("colorChoices");
         let productId = window.location.search.substr(1);
         let storage = JSON.parse(localStorage.getItem("Orinoco"));
         
         if (storage == null){
-            let storage = {id: 123, couleur:"bleu"};
-            storage.id = productId;
-            storage.couleur = productColor.value;
-            console.log(storage)
+            let storage = ["test"];
+            let newObj = {id:productId, color:productColor.value}
+            storage.push(newObj);
+            storage.shift();
+            console.log(storage);
             localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+            window.alert("L'objet à bien été ajouté au panier :)")
         } else {
-            storage.id = productId;
-            storage.couleur = productColor.value;
+            let newObj = {id:productId, color:productColor.value}
+            storage.push(newObj);
             console.log(storage)
             localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+            window.alert("L'objet à bien été ajouté au panier :)")
         }
     });
 }
