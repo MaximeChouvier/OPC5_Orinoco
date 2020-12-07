@@ -5,7 +5,6 @@ request.onreadystatechange = function() {
         var response = JSON.parse(this.responseText); 
         
         injection(response);
-
         function injection(response){
             let parentDiv = document.getElementById("javascript__injection");
             
@@ -43,6 +42,7 @@ function createAllElements(response, upper_left, upper_right, lower){
 function createPreview(response, upper_left){
     let productPreview = document.createElement("img");
     productPreview.className = ("productPreview");
+    productPreview.id = ("productImage");
     productPreview.src = response.imageUrl;
     upper_left.appendChild(productPreview);
 }
@@ -50,6 +50,7 @@ function createTitle(response, upper_right){
     let productTitle = document.createElement("h1");
     productTitle.className = ("productTitle underline font teddyName");
     productTitle.innerHTML = response.name;
+    productTitle.id = ("productName");
     upper_right.appendChild(productTitle);
 }
 function createDescription(response, upper_right){
@@ -80,6 +81,7 @@ function createColorsChoices(colorList, lower){
 function createPrice(response, lower){
     let productPrice = document.createElement("h2");
     productPrice.className = ("productPrice font")
+    productPrice.id = ("teddyPrice")
     productPrice.innerHTML = response.price + " €"
     lower.appendChild(productPrice);
 }
@@ -94,11 +96,15 @@ function createButton(lower, productId){
     document.getElementById("addCartButton").addEventListener("click", function() {
         let productColor = document.getElementById("colorChoices");
         let productId = window.location.search.substr(1);
+        let productPrice = document.getElementById("teddyPrice");
+        let productImage = document.getElementById("productImage")
+        let productName = document.getElementById("productName");
         let storage = JSON.parse(localStorage.getItem("Orinoco"));
         
         if (storage == null){
             let storage = ["test"];
-            let newObj = {id:productId, color:productColor.value}
+            let newObj = {id:productId, color:productColor.value, 
+            price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
             storage.push(newObj);
             storage.shift();
             console.log(storage);
