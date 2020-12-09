@@ -1,31 +1,22 @@
 let storage = JSON.parse(localStorage.getItem("Orinoco"));
+console.log (storage);
 
-storage.forEach(checkStorage);
+createAllElements(storage);
 
-function checkStorage(storage, response){
-    let currentItemId = storage.id;
-    let currentItemChoice = storage.color;
-    let currentItemPrice = storage.price;
-    let currentItemImage = storage.image;
-    let currentItemName = storage.name;
-
-    createAllElements(storage);
-};
 function createAllElements(storage){
     createContainers();
-    createOrder(storage);
-    appendOrders();
-    createOrderFinalisation();
+    createOrderFinalisation(storage);
+    storage.forEach(createOrder);
 }
 function createContainers(){
     let parentDiv = document.getElementById("javascript_injection");
-    
+
     let orderPreview = document.createElement("div");
-    orderPreview.className = ("orderPreview");
+    orderPreview.id = ("orderPreview")
     parentDiv.appendChild(orderPreview);
 
     let orderFinalisation = document.createElement("div");
-    orderFinalisation.className = ("orderFinalisation");
+    orderFinalisation.id = ("orderFinalisation");
     parentDiv.appendChild(orderFinalisation);
 }
 function createOrder(storage){
@@ -46,19 +37,16 @@ function createOrder(storage){
     orderPrice.className = ("orderPreview_price font");
     orderPrice.innerHTML = (storage.price);
     order.appendChild(orderPrice);
-}
-function appendOrders(){
-    let orderPreview = document.getElementById("orderPreview");
-    let orders = document.getElementsByClassName("order");
     
-    orderPreview.appendChild(orders);
+    let orderPreview = document.getElementById("orderPreview");
+    orderPreview.appendChild(order);
+    
 }
-function createOrderFinalisation(){
+function createOrderFinalisation(storage){
     let orderFinalisation = document.getElementById("orderFinalisation")
-
     let orderPrice = document.createElement("h1");
     orderPrice.className = ("orderPrice font");
-    orderPrice.innerHTML = ("placeholderPrice" + "€");
+    orderPrice.innerHTML = ("placeholderPrice" + " €");
 
     let orderButton = document.createElement("button");
     orderButton.className = ("orderButton font");
@@ -66,6 +54,9 @@ function createOrderFinalisation(){
 
     orderFinalisation.appendChild(orderPrice);
     orderFinalisation.appendChild(orderButton);
+
 }
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+let priceMapped = storage.map(x => x.price);
 
-
+console.log(priceParsed);

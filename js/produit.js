@@ -1,10 +1,11 @@
 var request = new XMLHttpRequest();
-
+localStorage.clear()
 request.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
         var response = JSON.parse(this.responseText); 
-        
+
         injection(response);
+
         function injection(response){
             let parentDiv = document.getElementById("javascript__injection");
             
@@ -111,7 +112,8 @@ function createButton(lower, productId){
             localStorage.setItem("Orinoco", (JSON.stringify(storage)));
             window.alert("L'objet à bien été ajouté au panier :)")
         } else {
-            let newObj = {id:productId, color:productColor.value}
+            let newObj = {id:productId, color:productColor.value, 
+            price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
             storage.push(newObj);
             console.log(storage)
             localStorage.setItem("Orinoco", (JSON.stringify(storage)));
