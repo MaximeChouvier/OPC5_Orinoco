@@ -43,10 +43,14 @@ function createOrder(storage){
     
 }
 function createOrderFinalisation(storage){
+    let placeholderPrice = 0;
+    storage.forEach(element => placeholderPrice += parseInt(element.price, 10));
+
     let orderFinalisation = document.getElementById("orderFinalisation")
     let orderPrice = document.createElement("h1");
+    orderPrice.innerHTML = "Total : " + placeholderPrice + " €";
     orderPrice.className = ("orderPrice font");
-    orderPrice.innerHTML = ("placeholderPrice" + " €");
+    
 
     let orderButton = document.createElement("button");
     orderButton.className = ("orderButton font");
@@ -54,9 +58,9 @@ function createOrderFinalisation(storage){
 
     orderFinalisation.appendChild(orderPrice);
     orderFinalisation.appendChild(orderButton);
-
 }
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
-let priceMapped = storage.map(x => x.price);
 
-console.log(priceParsed);
+// const reducer = (accumulator, currentValue) => accumulator + currentValue;
+// let priceMapped = storage.map(x => x.price);
+
+// console.log(priceParsed);

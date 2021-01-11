@@ -10,7 +10,7 @@ request.onreadystatechange = function() {
         function injectSingleItem(item){
             let wrapperDiv = document.getElementById("javascript__injection");
             let parentDiv = document.createElement("a");
-            parentDiv.className = ("productList_wrapper productWrapperLink")
+            parentDiv.className = ("productList_wrapper productWrapperLink");
             parentDiv.href = ("./SubPages/produits.html?") + item._id;
             
             let leftWrapper = createLeftWrapper(parentDiv);
