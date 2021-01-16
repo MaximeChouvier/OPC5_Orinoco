@@ -57,35 +57,41 @@ function createOrderFinalisation(storage){
 
     let orderButton = document.createElement("button");
     orderButton.className = ("orderButton font");
-    // orderButton.type = "submit";
+    orderButton.type = "submit";
     orderButton.innerHTML = ("Passer la commande");
 
+    let form_firstName = document.getElementById("firstName");
+    let form_lastName = document.getElementById("lastName");
+    let form_adress = document.getElementById("adress");
+    let form_city = document.getElementById("city");
+    let form_email = document.getElementById("mail");
+
+    form_firstName.addEventListener("change", isFormValid);
+
+    function isFormValid(form_firstName){
+        var firstNameRegex = /[a-z]*/;
+        if (form_firstName == firstNameRegex){
+            console.log("True")
+        }else{
+            console.log("False")
+        }
+    }
+
     orderPrice.addEventListener("click", function(productsOrdered){
-        
-        let form_firstName = document.getElementById("firstName").value;
-        let form_lastName = document.getElementById("lastName").value;
-        let form_adress = document.getElementById("adress").value;
-        let form_city = document.getElementById("city").value;
-        let form_email = document.getElementById("mail").value;
+
+        let form_firstName = document.getElementById("firstName");
+        let form_lastName = document.getElementById("lastName");
+        let form_adress = document.getElementById("adress");
+        let form_city = document.getElementById("city");
+        let form_email = document.getElementById("mail");
 
         let orderInfo = ["test"];
-        let infoObj = {firstName:form_firstName, lastName:form_lastName, 
-            adress:form_adress, city:form_city, email:form_email};
+        let infoObj = {firstName:form_firstName.value, lastName:form_lastName.value, 
+            adress:form_adress.value, city:form_city.value, email:form_email.value};
         orderInfo.push(infoObj);
         orderInfo.shift();
         console.log(orderInfo);
         
-        // var xhr = new XMLHttpRequest();
-        // xhr.open("POST", "http://localhost:3000/api/teddies/", true);
-        
-        // xhr.onreadystatechange = function(){
-        //     if(this.readyState == XMLHttpRequest.DONE && this.status == 200){
-
-        //     }
-        // }
-        // xhr.send();
-
-
     });
 
     orderFinalisation.appendChild(orderPrice);
