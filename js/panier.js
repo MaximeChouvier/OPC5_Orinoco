@@ -56,8 +56,10 @@ function createOrderFinalisation(storage){
     orderPrice.className = ("orderPrice font");
 
     let orderButton = document.createElement("button");
-    orderButton.className = ("orderButton font");
+    orderButton.className = ("font");
     orderButton.type = "submit";
+    orderButton.id = ("orderButton")
+    // orderButton.disabled = true;
     orderButton.innerHTML = ("Passer la commande");
 
     let form_firstName = document.getElementById("firstName");
@@ -66,15 +68,45 @@ function createOrderFinalisation(storage){
     let form_city = document.getElementById("city");
     let form_email = document.getElementById("mail");
 
+    
     form_firstName.addEventListener("change", isFormValid);
+    form_lastName.addEventListener("change", isFormValid);
+    form_adress.addEventListener("change", isFormValid);
+    form_city.addEventListener("change", isFormValid);
+    form_email.addEventListener("change", isFormValid);
 
-    function isFormValid(form_firstName){
-        var firstNameRegex = /[a-z]*/;
-        if (form_firstName == firstNameRegex){
-            console.log("True")
-        }else{
-            console.log("False")
+    function isFormValid(){
+        let orderButton = document.getElementById("orderButton")
+        let form_firstName = document.getElementById("firstName");
+        let form_lastName = document.getElementById("lastName");
+        let form_adress = document.getElementById("adress");
+        let form_city = document.getElementById("city");
+
+        const onlyLettersRegex = /^[a-zA-Z-éÉàâäéèêëïîôöùûüÿç]+$/;
+        const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/gm;
+
+
+        let firstName_result = onlyLettersRegex.test(form_firstName.value);
+        console.log("firstName " + firstName_result)
+
+        let lastName_result = onlyLettersRegex.test(form_lastName.value);
+        console.log("lastName " + lastName_result)
+
+        let adress_result = adressRegex.test(form_adress.value);
+        console.log("adress " + adress_result)
+
+        let city_result = onlyLettersRegex.test(form_city.value); 
+        console.log("city " + city_result)
+
+
+        if (firstName_result == true && lastName_result == true && adress_result == true && city_result == true){
+            console.log("All true")
+            orderButton.disabled = false;
+        } else {
+            console.log("not all true")
+            orderButton.disabled = true;
         }
+        console.log("-----")
     }
 
     orderPrice.addEventListener("click", function(productsOrdered){

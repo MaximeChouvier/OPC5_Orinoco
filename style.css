@@ -132,13 +132,21 @@ body, html{
     color: #4DA89F;
     font-size: 22px;
 }
-.orderButton{
+#orderButton:enabled{
     height: 40px;
     width: 100px;
     color: #fff;
     background-color:#017567;
     border-radius:28px;
     border:1px solid #017567;
+}
+#orderButton:disabled{
+    height: 40px;
+    width: 100px;
+    color: #fff;
+    background-color:#063832;
+    border-radius:28px;
+    border:1px solid #063832;
 }
 .formWrapper{
     text-align: center;
