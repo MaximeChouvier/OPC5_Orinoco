@@ -1,6 +1,7 @@
 body, html{
     margin: 0px;
     padding: 0px;
+    min-width: fit-content;
     background-color: #ffc482;
 }
 #navbar{
@@ -126,7 +127,6 @@ body, html{
     align-items: center;
     justify-content: space-around;
     margin-top: 20px;
-
 }
 .orderPrice{
     color: #4DA89F;
@@ -165,4 +165,31 @@ body, html{
 }
 .emailInput{
     min-width: 180px;
+}
+.confirm_wrapper{
+    margin: auto;
+    display: flex;
+    max-width: 500px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.confirm_wrapper{
+    display: flex;
+    justify-content: center;
+}
+.confirm_orderName{
+    color: #175676;
+    margin: auto;
+}
+.confirm_orderPrice{
+    text-align: center;
+    font-size: 26px;
+    color: #017567;
+}
+.confirm_orderId{
+    color: #3e2a35;
+    text-align: center;
+}
+#confirm_preview{
+    
 }

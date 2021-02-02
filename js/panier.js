@@ -59,7 +59,7 @@ function createOrderFinalisation(storage){
     orderButton.className = ("font");
     orderButton.type = "submit";
     orderButton.id = ("orderButton")
-    // orderButton.disabled = true;
+    orderButton.disabled = true;
     orderButton.innerHTML = ("Passer la commande");
 
     let form_firstName = document.getElementById("firstName");
@@ -68,7 +68,6 @@ function createOrderFinalisation(storage){
     let form_city = document.getElementById("city");
     let form_email = document.getElementById("mail");
 
-    
     form_firstName.addEventListener("change", isFormValid);
     form_lastName.addEventListener("change", isFormValid);
     form_adress.addEventListener("change", isFormValid);
@@ -83,8 +82,8 @@ function createOrderFinalisation(storage){
         let form_city = document.getElementById("city");
 
         const onlyLettersRegex = /^[a-zA-Z-éÉàâäéèêëïîôöùûüÿç]+$/;
-        const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/gm;
-
+        const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/;
+        const emailRegex = /\S+@\S+\.\S+/;
 
         let firstName_result = onlyLettersRegex.test(form_firstName.value);
         console.log("firstName " + firstName_result)
@@ -98,10 +97,13 @@ function createOrderFinalisation(storage){
         let city_result = onlyLettersRegex.test(form_city.value); 
         console.log("city " + city_result)
 
+        let email_result = emailRegex.test(form_email.value);
+        console.log("email " + email_result);
 
-        if (firstName_result == true && lastName_result == true && adress_result == true && city_result == true){
+        if (firstName_result == true && lastName_result == true && adress_result == true && city_result == true && email_result == true){
             console.log("All true")
             orderButton.disabled = false;
+            
         } else {
             console.log("not all true")
             orderButton.disabled = true;
@@ -109,7 +111,7 @@ function createOrderFinalisation(storage){
         console.log("-----")
     }
 
-    orderPrice.addEventListener("click", function(productsOrdered){
+    orderFinalisation.addEventListener("click", function(productsOrdered){
 
         let form_firstName = document.getElementById("firstName");
         let form_lastName = document.getElementById("lastName");
@@ -117,13 +119,23 @@ function createOrderFinalisation(storage){
         let form_city = document.getElementById("city");
         let form_email = document.getElementById("mail");
 
+        let orderArticles = []
+        storage.forEach(element => {
+            let obj = {name:element.name, image:element.image, color:element.color}
+            orderArticles.push(obj);
+        })
+
         let orderInfo = ["test"];
         let infoObj = {firstName:form_firstName.value, lastName:form_lastName.value, 
-            adress:form_adress.value, city:form_city.value, email:form_email.value};
+            adress:form_adress.value, city:form_city.value, email:form_email.value, products:orderArticles, price:placeholderPrice};
         orderInfo.push(infoObj);
         orderInfo.shift();
-        console.log(orderInfo);
         
+        console.log(orderInfo)
+
+        localStorage.setItem("Orinoco_Order", (JSON.stringify(orderInfo)))
+        // window.location.href = "../SubPages/confirmation.html";
+
     });
 
     orderFinalisation.appendChild(orderPrice);
