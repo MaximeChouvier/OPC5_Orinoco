@@ -71,6 +71,17 @@ function createOrderInfo(storage){
         return result;
     }
 
+    var idRequest = new XMLHttpRequest();
+    idRequest.onreadystatechange = function() {
+        if (this.onreadystatechange == XMLHttpRequest.DONE && this.status == 200) {
+            var idResponse = JSON.parse(this.responseText);
+            console.log(idResponse.current_condition.condition);
+        }
+    };
+
+    idRequest.open("GET, http://localhost:3000/api/teddies/:_id")
+    idRequest.send();
+    
     let orderId = makeId(8);
 
     let orderId_preview = document.createElement("h4");
@@ -78,7 +89,4 @@ function createOrderInfo(storage){
     orderId_preview.innerHTML = "ID de commande : " + orderId;
     orderContainer.appendChild(orderId_preview);
 }
-let request = new XMLHttpRequest();
-request.open("POST", "http://localhost:3000/api/teddies/order");
-request.setRequestHeader("Content-Type", "application/json");
-request.send(JSON.stringify(storage));
+

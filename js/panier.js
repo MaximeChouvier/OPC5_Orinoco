@@ -57,7 +57,7 @@ function createOrderFinalisation(storage){
 
     let orderButton = document.createElement("button");
     orderButton.className = ("font");
-    orderButton.type = "submit";
+    orderButton.type = "button";
     orderButton.id = ("orderButton")
     orderButton.disabled = true;
     orderButton.innerHTML = ("Passer la commande");
@@ -121,20 +121,26 @@ function createOrderFinalisation(storage){
 
         let orderArticles = []
         storage.forEach(element => {
-            let obj = {name:element.name, image:element.image, color:element.color}
-            orderArticles.push(obj);
+            let products = {name:element.name, image:element.image, color:element.color}
+            orderArticles.push(products);
         })
 
         let orderInfo = ["test"];
-        let infoObj = {firstName:form_firstName.value, lastName:form_lastName.value, 
+        let contact = {firstName:form_firstName.value, lastName:form_lastName.value, 
             adress:form_adress.value, city:form_city.value, email:form_email.value, products:orderArticles, price:placeholderPrice};
-        orderInfo.push(infoObj);
+        orderInfo.push(contact);
         orderInfo.shift();
         
         console.log(orderInfo)
 
-        localStorage.setItem("Orinoco_Order", (JSON.stringify(orderInfo)))
-        // window.location.href = "../SubPages/confirmation.html";
+        let postReq = new XMLHttpRequest();
+        postReq.open("POST", "http://localhost:3000/api/teddies/order");
+        postReq.setRequestHeader("Content-Type", "application/json");
+        postReq.send(JSON.stringify(orderInfo));
+
+        // localStorage.setItem("Orinoco_Order", (JSON.stringify(orderInfo)))
+        // setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},500);
+        
 
     });
 
