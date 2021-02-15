@@ -111,35 +111,55 @@ function createOrderFinalisation(storage){
         console.log("-----")
     }
 
-    orderFinalisation.addEventListener("click", function(productsOrdered){
+orderFinalisation.addEventListener("click", function(productsOrdered){
 
-        let form_firstName = document.getElementById("firstName");
-        let form_lastName = document.getElementById("lastName");
-        let form_adress = document.getElementById("adress");
-        let form_city = document.getElementById("city");
-        let form_email = document.getElementById("mail");
+    let form_firstName = document.getElementById("firstName");
+    let form_lastName = document.getElementById("lastName");
+    let form_adress = document.getElementById("adress");
+    let form_city = document.getElementById("city");
+    let form_email = document.getElementById("mail");
 
-        let orderArticles = []
-        storage.forEach(element => {
-            let products = {name:element.name, image:element.image, color:element.color}
-            orderArticles.push(products);
-        })
+    let orderArticles = []
+    storage.forEach(element => {
+        let products = {name:element.name, image:element.image, color:element.color}
+        orderArticles.push(products);
+    })
 
-        let orderInfo = ["test"];
-        let contact = {firstName:form_firstName.value, lastName:form_lastName.value, 
-            adress:form_adress.value, city:form_city.value, email:form_email.value, products:orderArticles, price:placeholderPrice};
-        orderInfo.push(contact);
-        orderInfo.shift();
+    // let orderInfo = ["test"];
+    // let contact = {firstName:form_firstName.value, lastName:form_lastName.value, 
+    //     adress:form_adress.value, city:form_city.value, email:form_email.value, products:orderArticles, price:placeholderPrice};
+    // orderInfo.push(contact);
+    // orderInfo.shift();
         
-        console.log(orderInfo)
+    const orderInfo = {
+        "contact": {
+            "firstName": "form_firstName.value",
+            "lastName": "form_lastName.value",
+            "adress": "form_adress.value",
+            "city": "form_city.value",
+            "email": "form_email.value"
+        },
+        "products": [
+            "9684654", "96874685468574"
+        ]
+    }
 
-        let postReq = new XMLHttpRequest();
-        postReq.open("POST", "http://localhost:3000/api/teddies/order");
-        postReq.setRequestHeader("Content-Type", "application/json");
-        postReq.send(JSON.stringify(orderInfo));
+    console.log(orderInfo)
 
-        // localStorage.setItem("Orinoco_Order", (JSON.stringify(orderInfo)))
-        // setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},500);
+    let postReq = new XMLHttpRequest();
+    postReq.open("POST", "http://localhost:3000/api/teddies/order");
+    postReq.setRequestHeader("Content-Type", "application/json");
+
+    postReq.onreadystatechange = function () {
+        if (postReq.readyState === 4) {
+            console.log(postReq.response)
+        }
+    }
+
+    postReq.send(JSON.stringify(orderInfo));
+
+    // localStorage.setItem("Orinoco_Order", (JSON.stringify(orderInfo)))
+    // setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},500);
         
 
     });

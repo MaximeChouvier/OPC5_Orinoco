@@ -75,11 +75,11 @@ function createOrderInfo(storage){
     idRequest.onreadystatechange = function() {
         if (this.onreadystatechange == XMLHttpRequest.DONE && this.status == 200) {
             var idResponse = JSON.parse(this.responseText);
-            console.log(idResponse.current_condition.condition);
+            console.log(idResponse);
         }
     };
 
-    idRequest.open("GET, http://localhost:3000/api/teddies/:_id")
+    idRequest.open("GET, http://localhost:3000/api/teddies/" + id)
     idRequest.send();
     
     let orderId = makeId(8);
