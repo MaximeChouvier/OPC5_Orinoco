@@ -51,26 +51,26 @@ function itemImage(item, leftWrapper){
 };
 function itemTitle(item, rightWrapper){
     let itemTitle = document.createElement("h1");
-    itemTitle.className = ("productTitle underline font teddyName");
+    itemTitle.className = ("productTitle underline font teddyName centered");
     itemTitle.innerHTML = item.name;
     rightWrapper.appendChild(itemTitle);
 };
 function itemPrice(item, rightWrapper){
     let itemPrice = document.createElement("h2");
-    itemPrice.className = ("productPrice underline font teddyPrice");
+    itemPrice.className = ("productPrice underline font teddyPrice centered");
     itemPrice.innerHTML = item.price + " €";
     rightWrapper.appendChild(itemPrice);
 };
 function itemDescription(item, rightWrapper){
     let itemDescription = document.createElement('p');
     itemDescription.innerHTML = item.description;
-    itemDescription.className = 'productDescription underline font teddyDesc';
+    itemDescription.className = 'productDescription underline font teddyDesc centered';
     rightWrapper.appendChild(itemDescription);
 };
 function itemCustomChoices(item, parentDiv){
     let itemCustomChoices = document.createElement('p');
     itemCustomChoices.innerHTML = ("Couleurs : ") + item.colors;
-    itemCustomChoices.className = 'productColors underline font teddyColors';
+    itemCustomChoices.className = 'productColors underline font teddyColors centered';
     parentDiv.appendChild(itemCustomChoices);
 };
 

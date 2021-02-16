@@ -11,15 +11,34 @@ function createAllElements(storage){
 function createContainers(){
     let parentDiv = document.getElementById("javascript_injection");
 
-    let orderPreview = document.createElement("div");
-    orderPreview.id = ("orderPreview")
-    parentDiv.appendChild(orderPreview);
+    function handleEmptyBasket(parentDiv){
+        let emptyTitle = document.createElement("h2");
+        emptyTitle.className = "emptyBasket centered font"
+        emptyTitle.innerHTML = "Malheureusement vôtre panier est vide"
 
-    let orderForm = document.getElementById("orderForm")
+        let emptyTitle_small = document.createElement("p");
+        emptyTitle_small.className = "emptyBasket_small centered font"
+        emptyTitle_small.innerHTML = "Veuillez ajouter des articles au panier avant de pouvoir passer commande"
+        
+        parentDiv.appendChild(emptyTitle);
+        parentDiv.appendChild(emptyTitle_small);
 
-    let orderFinalisation = document.createElement("div");
-    orderFinalisation.id = ("orderFinalisation");
-    orderForm.appendChild(orderFinalisation);
+    }
+
+    if (storage == null){
+        handleEmptyBasket(parentDiv);
+    } else {
+        let orderPreview = document.createElement("div");
+        orderPreview.id = ("orderPreview")
+        parentDiv.appendChild(orderPreview);
+
+        let orderForm = document.getElementById("orderForm")
+
+        let orderFinalisation = document.createElement("div");
+        orderFinalisation.id = ("orderFinalisation");
+        orderForm.appendChild(orderFinalisation);
+    }
+    
 }
 function createOrder(storage){
     let order = document.createElement("div");
@@ -86,32 +105,19 @@ function createOrderFinalisation(storage){
         const emailRegex = /\S+@\S+\.\S+/;
 
         let firstName_result = onlyLettersRegex.test(form_firstName.value);
-        // console.log("firstName " + firstName_result)
-
         let lastName_result = onlyLettersRegex.test(form_lastName.value);
-        // console.log("lastName " + lastName_result)
-
         let adress_result = adressRegex.test(form_adress.value);
-        // console.log("adress " + adress_result)
-
         let city_result = onlyLettersRegex.test(form_city.value); 
-        // console.log("city " + city_result)
-
         let email_result = emailRegex.test(form_email.value);
-        // console.log("email " + email_result);
 
         if (firstName_result == true && lastName_result == true && adress_result == true && city_result == true && email_result == true){
-            // console.log("All true")
             orderButton.disabled = false;
-            
         } else {
-            // console.log("not all true")
             orderButton.disabled = true;
         }
-        // console.log("-----")
     }
 
-orderButton.addEventListener("click", function(productsOrdered){
+    orderButton.addEventListener("click", function(productsOrdered){
 
     let form_firstName = document.getElementById("firstName");
     let form_lastName = document.getElementById("lastName");
@@ -161,7 +167,7 @@ orderButton.addEventListener("click", function(productsOrdered){
     }
 
     postReq.send(JSON.stringify(orderInfo));
-    setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},1000);
+    setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},500);
 
     });
 

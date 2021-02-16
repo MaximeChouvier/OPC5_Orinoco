@@ -41,14 +41,14 @@ function createAllElements(response, upper_left, upper_right, lower){
 }
 function createPreview(response, upper_left){
     let productPreview = document.createElement("img");
-    productPreview.className = ("productPreview");
+    productPreview.className = ("productPreview centered");
     productPreview.id = ("productImage");
     productPreview.src = response.imageUrl;
     upper_left.appendChild(productPreview);
 }
 function createTitle(response, upper_right){
     let productTitle = document.createElement("h1");
-    productTitle.className = ("productTitle underline font teddyName");
+    productTitle.className = ("productTitle underline font teddyName centered");
     productTitle.innerHTML = response.name;
     productTitle.id = ("productName");
     upper_right.appendChild(productTitle);
@@ -56,7 +56,7 @@ function createTitle(response, upper_right){
 function createDescription(response, upper_right){
     let productDescription = document.createElement('p');
     productDescription.innerHTML = response.description;
-    productDescription.className = 'productDescription underline font teddyDesc';
+    productDescription.className = 'productDescription underline font teddyDesc centered';
     upper_right.appendChild(productDescription);
 }
 function createColorsChoices(colorList, lower){
@@ -110,6 +110,7 @@ function createButton(lower, productId){
             console.log(storage);
             localStorage.setItem("Orinoco", (JSON.stringify(storage)));
             window.alert("L'objet à bien été ajouté au panier :)")
+            setTimeout(function(){document.location.href = "../index.html"},100);
         } else {
             let newObj = {id:productId, color:productColor.value, 
             price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
@@ -117,6 +118,7 @@ function createButton(lower, productId){
             console.log(storage)
             localStorage.setItem("Orinoco", (JSON.stringify(storage)));
             window.alert("L'objet à bien été ajouté au panier :)")
+            setTimeout(function(){document.location.href = "../index.html"},100);
         }
     });
 }

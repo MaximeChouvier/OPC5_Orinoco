@@ -18,12 +18,12 @@ function createOrderInfo(storage){
     let orderContainer = document.getElementById("confirm_preview");
 
     let orderPrice = document.createElement("h3");
-    orderPrice.className = "confirm_orderPrice font";
+    orderPrice.className = "confirm_orderPrice font centered";
     orderPrice.innerHTML = "Total : " + storage.price + " €";
     orderContainer.appendChild(orderPrice);
 
     let orderId_preview = document.createElement("h4");
-    orderId_preview.className = "confirm_orderId font";
+    orderId_preview.className = "confirm_orderId font centered";
     orderId_preview.innerHTML = "ID de commande : " + storage.id;
     orderContainer.appendChild(orderId_preview);
 }
