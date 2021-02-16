@@ -74,7 +74,5 @@ function itemCustomChoices(item, parentDiv){
     parentDiv.appendChild(itemCustomChoices);
 };
 
-
-
 request.open("GET", "http://localhost:3000/api/teddies");
 request.send();

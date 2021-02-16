@@ -86,32 +86,32 @@ function createOrderFinalisation(storage){
         const emailRegex = /\S+@\S+\.\S+/;
 
         let firstName_result = onlyLettersRegex.test(form_firstName.value);
-        console.log("firstName " + firstName_result)
+        // console.log("firstName " + firstName_result)
 
         let lastName_result = onlyLettersRegex.test(form_lastName.value);
-        console.log("lastName " + lastName_result)
+        // console.log("lastName " + lastName_result)
 
         let adress_result = adressRegex.test(form_adress.value);
-        console.log("adress " + adress_result)
+        // console.log("adress " + adress_result)
 
         let city_result = onlyLettersRegex.test(form_city.value); 
-        console.log("city " + city_result)
+        // console.log("city " + city_result)
 
         let email_result = emailRegex.test(form_email.value);
-        console.log("email " + email_result);
+        // console.log("email " + email_result);
 
         if (firstName_result == true && lastName_result == true && adress_result == true && city_result == true && email_result == true){
-            console.log("All true")
+            // console.log("All true")
             orderButton.disabled = false;
             
         } else {
-            console.log("not all true")
+            // console.log("not all true")
             orderButton.disabled = true;
         }
-        console.log("-----")
+        // console.log("-----")
     }
 
-orderFinalisation.addEventListener("click", function(productsOrdered){
+orderButton.addEventListener("click", function(productsOrdered){
 
     let form_firstName = document.getElementById("firstName");
     let form_lastName = document.getElementById("lastName");
@@ -119,29 +119,27 @@ orderFinalisation.addEventListener("click", function(productsOrdered){
     let form_city = document.getElementById("city");
     let form_email = document.getElementById("mail");
 
-    let orderArticles = []
+    let confirmArticles = []
     storage.forEach(element => {
         let products = {name:element.name, image:element.image, color:element.color}
-        orderArticles.push(products);
+        confirmArticles.push(products);
     })
 
-    // let orderInfo = ["test"];
-    // let contact = {firstName:form_firstName.value, lastName:form_lastName.value, 
-    //     adress:form_adress.value, city:form_city.value, email:form_email.value, products:orderArticles, price:placeholderPrice};
-    // orderInfo.push(contact);
-    // orderInfo.shift();
-        
+    let orderArticles = []
+    storage.forEach(element => {
+        let products = element.id
+        orderArticles.push(products);
+    })
+    
     const orderInfo = {
         "contact": {
-            "firstName": "form_firstName.value",
-            "lastName": "form_lastName.value",
-            "adress": "form_adress.value",
-            "city": "form_city.value",
-            "email": "form_email.value"
+            "firstName": form_firstName.value,
+            "lastName": form_lastName.value,
+            "address": form_adress.value,
+            "city": form_city.value,
+            "email": form_email.value
         },
-        "products": [
-            "9684654", "96874685468574"
-        ]
+        "products": orderArticles
     }
 
     console.log(orderInfo)
@@ -152,15 +150,18 @@ orderFinalisation.addEventListener("click", function(productsOrdered){
 
     postReq.onreadystatechange = function () {
         if (postReq.readyState === 4) {
-            console.log(postReq.response)
+            let response = JSON.parse(postReq.response)
+            let orderId = response.orderId;
+
+            let orderConfirm_info = {price:placeholderPrice, id:orderId};
+            
+            localStorage.setItem("Orinoco_order", JSON.stringify(orderConfirm_info));
+            console.log(localStorage);
         }
     }
 
     postReq.send(JSON.stringify(orderInfo));
-
-    // localStorage.setItem("Orinoco_Order", (JSON.stringify(orderInfo)))
-    // setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},500);
-        
+    setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},1000);
 
     });
 
