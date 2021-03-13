@@ -13,12 +13,12 @@ function createContainers(){
 
     function handleEmptyBasket(parentDiv){
         let emptyTitle = document.createElement("h2");
-        emptyTitle.className = "emptyBasket centered font"
-        emptyTitle.innerHTML = "Malheureusement vôtre panier est vide"
+        emptyTitle.className = "emptyBasket centered font";
+        emptyTitle.innerHTML = "Malheureusement votre panier est vide";
 
         let emptyTitle_small = document.createElement("p");
-        emptyTitle_small.className = "emptyBasket_small centered font"
-        emptyTitle_small.innerHTML = "Veuillez ajouter des articles au panier avant de pouvoir passer commande"
+        emptyTitle_small.className = "emptyBasket_small centered font";
+        emptyTitle_small.innerHTML = "Veuillez ajouter des articles au panier avant de pouvoir passer commande";
         
         parentDiv.appendChild(emptyTitle);
         parentDiv.appendChild(emptyTitle_small);
@@ -29,33 +29,33 @@ function createContainers(){
         handleEmptyBasket(parentDiv);
     } else {
         let orderPreview = document.createElement("div");
-        orderPreview.id = ("orderPreview")
+        orderPreview.id = "orderPreview";
         parentDiv.appendChild(orderPreview);
 
         let orderForm = document.getElementById("orderForm")
 
         let orderFinalisation = document.createElement("div");
-        orderFinalisation.id = ("orderFinalisation");
+        orderFinalisation.id = "orderFinalisation";
         orderForm.appendChild(orderFinalisation);
     }
     
 }
 function createOrder(storage){
     let order = document.createElement("div");
-    order.className = ("order");
+    order.className = "order";
 
     let orderImg = document.createElement("img");
-    orderImg.className = ("orderPreview_image");
+    orderImg.className = "orderPreview_image";
     orderImg.src = (storage.image);
     order.appendChild(orderImg);
 
     let orderName = document.createElement("h1")
-    orderName.className = ("orderPreview_name font")
+    orderName.className = "orderPreview_name font";
     orderName.innerHTML = (storage.name + (" (") + (storage.color) + (")"));
     order.appendChild(orderName);
 
     let orderPrice = document.createElement("h2");
-    orderPrice.className = ("orderPreview_price font");
+    orderPrice.className = "orderPreview_price font";
     orderPrice.innerHTML = (storage.price);
     order.appendChild(orderPrice);
     
@@ -72,14 +72,14 @@ function createOrderFinalisation(storage){
     let orderFinalisation = document.getElementById("orderFinalisation")
     let orderPrice = document.createElement("h1");
     orderPrice.innerHTML = "Total : " + placeholderPrice + " €";
-    orderPrice.className = ("orderPrice font");
+    orderPrice.className = "orderPrice font";
 
     let orderButton = document.createElement("button");
-    orderButton.className = ("font");
+    orderButton.className = "font";
     orderButton.type = "button";
-    orderButton.id = ("orderButton")
+    orderButton.id = "orderButton"
     orderButton.disabled = true;
-    orderButton.innerHTML = ("Passer la commande");
+    orderButton.innerHTML = "Passer la commande";
 
     let form_firstName = document.getElementById("firstName");
     let form_lastName = document.getElementById("lastName");

@@ -11,7 +11,7 @@ function createOrderConfirmation(storage){
     let parentDiv = document.getElementById("javascript_injection");
 
     let confirmPreview = document.createElement("section");
-    confirmPreview.id = "confirm_preview"
+    confirmPreview.id = "confirm_preview";
     parentDiv.appendChild(confirmPreview);
 }
 function createOrderInfo(storage){

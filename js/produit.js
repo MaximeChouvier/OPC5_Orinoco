@@ -5,29 +5,30 @@ request.onreadystatechange = function() {
 
         injection(response);
 
-        function injection(response){
-            let parentDiv = document.getElementById("javascript__injection");
-            
-            let productContainer = document.createElement("div");
-            productContainer.className = ("productContainer");
         
-            let productContainer_upper = document.createElement("div");
-            productContainer_upper.className = ("productContainer_upper");
-        
-            let lower = document.createElement("div");
-            lower.className = ("lower")
-        
-            let upper_left = document.createElement("div")
-            upper_left.className = ("upper_left");
-        
-            let upper_right = document.createElement("div");
-            upper_right.className = ("upper_right");
-
-            appendAllContainers(parentDiv, productContainer, productContainer_upper, lower, upper_left, upper_right);
-            createAllElements(response, upper_left, upper_right, lower);
-        }
     }
 };
+function injection(response){
+    let parentDiv = document.getElementById("javascript__injection");
+    
+    let productContainer = document.createElement("div");
+    productContainer.className = ("productContainer");
+
+    let productContainer_upper = document.createElement("div");
+    productContainer_upper.className = ("productContainer_upper");
+
+    let lower = document.createElement("div");
+    lower.className = ("lower")
+
+    let upper_left = document.createElement("div")
+    upper_left.className = ("upper_left");
+
+    let upper_right = document.createElement("div");
+    upper_right.className = ("upper_right");
+
+    appendAllContainers(parentDiv, productContainer, productContainer_upper, lower, upper_left, upper_right);
+    createAllElements(response, upper_left, upper_right, lower);
+}
 function createAllElements(response, upper_left, upper_right, lower){          
     let colorList = [];
     colorList = response.colors;
@@ -41,16 +42,16 @@ function createAllElements(response, upper_left, upper_right, lower){
 }
 function createPreview(response, upper_left){
     let productPreview = document.createElement("img");
-    productPreview.className = ("productPreview centered");
-    productPreview.id = ("productImage");
+    productPreview.className = "productPreview centered";
+    productPreview.id = "productImage";
     productPreview.src = response.imageUrl;
     upper_left.appendChild(productPreview);
 }
 function createTitle(response, upper_right){
     let productTitle = document.createElement("h1");
-    productTitle.className = ("productTitle underline font teddyName centered");
+    productTitle.className = "productTitle underline font teddyName centered";
     productTitle.innerHTML = response.name;
-    productTitle.id = ("productName");
+    productTitle.id = "productName";
     upper_right.appendChild(productTitle);
 }
 function createDescription(response, upper_right){
@@ -64,33 +65,29 @@ function createColorsChoices(colorList, lower){
     lower.appendChild(productForm);
 
     let colorSelect = document.createElement("select");
-    colorSelect.name = ("colorChoiceList");
-    colorSelect.id = ("colorChoices");
-    colorSelect.className = ("teddy-colors")
+    colorSelect.name = "colorChoiceList";
+    colorSelect.id = "colorChoices";
+    colorSelect.className = "teddy-colors";
     productForm.appendChild(colorSelect);
     
     for (var i = 0; i < colorList.length; i++){
         let colorSelect_option = document.createElement("option");
         colorSelect_option.setAttribute("color", colorList[i]);
         colorSelect_option.text = colorList[i];
-        colorSelect_option.className = ("colorSelect_option")
-        colorSelect.appendChild(colorSelect_option);
+        colorSelect_option.className = "colorSelect_option";
         colorSelect.appendChild(colorSelect_option);
     }
 }
 function createPrice(response, lower){
     let productPrice = document.createElement("h2");
-    productPrice.className = ("productPrice font")
-    productPrice.id = ("teddyPrice")
+    productPrice.className = "productPrice font";
+    productPrice.id = "teddyPrice";
     productPrice.innerHTML = response.price + " €"
     lower.appendChild(productPrice);
 }
 function createButton(lower, productId){
-    let cartButton = document.createElement("button");
-    cartButton.className = ("cartButton font");
-    cartButton.id = ("addCartButton");
-    cartButton.innerHTML = ("Ajouter au panier");
-    cartButton.href = ("./panier.html");
+    let cartButton = document.getElementById("addCartButton");
+    cartButton.href = "./panier.html";
     lower.appendChild(cartButton);
 
     document.getElementById("addCartButton").addEventListener("click", function() {
@@ -102,23 +99,9 @@ function createButton(lower, productId){
         let storage = JSON.parse(localStorage.getItem("Orinoco"));
         
         if (storage == null){
-            let storage = ["test"];
-            let newObj = {id:productId, color:productColor.value, 
-            price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
-            storage.push(newObj);
-            storage.shift();
-            console.log(storage);
-            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
-            window.alert("L'objet à bien été ajouté au panier :)")
-            setTimeout(function(){document.location.href = "../index.html"},100);
+            handleNullStorage(productColor, productId, productPrice, productImage, productName)
         } else {
-            let newObj = {id:productId, color:productColor.value, 
-            price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
-            storage.push(newObj);
-            console.log(storage)
-            localStorage.setItem("Orinoco", (JSON.stringify(storage)));
-            window.alert("L'objet à bien été ajouté au panier :)")
-            setTimeout(function(){document.location.href = "../index.html"},100);
+            pushProductToStorage(productColor, productId, productPrice, productImage, productName, storage);
         }
     });
 }
@@ -140,4 +123,26 @@ sendRequest(request, productId);
 function sendRequest (request, productId){
     request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
     request.send();
+}
+function handleNullStorage(productColor, productId, productPrice, productImage, productName){
+    let storage = [];
+    let newObj = {id:productId, color:productColor.value, 
+    price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
+    storage.push(newObj);
+    console.log(storage);
+    localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+    window.alert("L'objet à bien été ajouté au panier :)")
+    redirectHome();
+}
+function pushProductToStorage(productColor, productId, productPrice, productImage, productName, storage){
+    let newObj = {id:productId, color:productColor.value, 
+    price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
+    storage.push(newObj);
+    console.log(storage)
+    localStorage.setItem("Orinoco", (JSON.stringify(storage)));
+    window.alert("L'objet à bien été ajouté au panier :)")
+    redirectHome();
+}
+function redirectHome(){
+    setTimeout(function(){document.location.href = "../index.html"},100);
 }
