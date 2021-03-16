@@ -11,20 +11,6 @@ function createAllElements(storage){
 function createContainers(){
     let parentDiv = document.getElementById("javascript_injection");
 
-    function handleEmptyBasket(parentDiv){
-        let emptyTitle = document.createElement("h2");
-        emptyTitle.className = "emptyBasket centered font";
-        emptyTitle.innerHTML = "Malheureusement votre panier est vide";
-
-        let emptyTitle_small = document.createElement("p");
-        emptyTitle_small.className = "emptyBasket_small centered font";
-        emptyTitle_small.innerHTML = "Veuillez ajouter des articles au panier avant de pouvoir passer commande";
-        
-        parentDiv.appendChild(emptyTitle);
-        parentDiv.appendChild(emptyTitle_small);
-
-    }
-
     if (storage == null){
         handleEmptyBasket(parentDiv);
     } else {
@@ -38,29 +24,19 @@ function createContainers(){
         orderFinalisation.id = "orderFinalisation";
         orderForm.appendChild(orderFinalisation);
     }
-    
 }
-function createOrder(storage){
-    let order = document.createElement("div");
-    order.className = "order";
+function handleEmptyBasket(parentDiv){
+    let emptyTitle = document.createElement("h2");
+    emptyTitle.className = "emptyBasket centered font";
+    emptyTitle.innerHTML = "Malheureusement votre panier est vide";
 
-    let orderImg = document.createElement("img");
-    orderImg.className = "orderPreview_image";
-    orderImg.src = (storage.image);
-    order.appendChild(orderImg);
-
-    let orderName = document.createElement("h1")
-    orderName.className = "orderPreview_name font";
-    orderName.innerHTML = (storage.name + (" (") + (storage.color) + (")"));
-    order.appendChild(orderName);
-
-    let orderPrice = document.createElement("h2");
-    orderPrice.className = "orderPreview_price font";
-    orderPrice.innerHTML = (storage.price);
-    order.appendChild(orderPrice);
+    let emptyTitle_small = document.createElement("p");
+    emptyTitle_small.className = "emptyBasket_small centered font";
+    emptyTitle_small.innerHTML = "Veuillez ajouter des articles au panier avant de pouvoir passer commande";
     
-    let orderPreview = document.getElementById("orderPreview");
-    orderPreview.appendChild(order);
+    parentDiv.appendChild(emptyTitle);
+    parentDiv.appendChild(emptyTitle_small);
+
 }
 function createOrderFinalisation(storage){
     let placeholderPrice = 0;
@@ -94,12 +70,12 @@ function createOrderFinalisation(storage){
     form_email.addEventListener("change", isFormValid);
 
     function isFormValid(){
-        let orderButton = document.getElementById("orderButton")
         let form_firstName = document.getElementById("firstName");
         let form_lastName = document.getElementById("lastName");
         let form_adress = document.getElementById("adress");
         let form_city = document.getElementById("city");
-
+        let form_email = document.getElementById("mail");
+        
         const onlyLettersRegex = /^[a-zA-Z-éÉàâäéèêëïîôöùûüÿç]+$/;
         const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/;
         const emailRegex = /\S+@\S+\.\S+/;
@@ -173,4 +149,26 @@ function createOrderFinalisation(storage){
 
     orderFinalisation.appendChild(orderPrice);
     orderFinalisation.appendChild(orderButton);
+}
+function createOrder(storage){
+    let order = document.createElement("div");
+    order.className = "order";
+
+    let orderImg = document.createElement("img");
+    orderImg.className = "orderPreview_image";
+    orderImg.src = (storage.image);
+    order.appendChild(orderImg);
+
+    let orderName = document.createElement("h1")
+    orderName.className = "orderPreview_name font";
+    orderName.innerHTML = (storage.name + (" (") + (storage.color) + (")"));
+    order.appendChild(orderName);
+
+    let orderPrice = document.createElement("h2");
+    orderPrice.className = "orderPreview_price font";
+    orderPrice.innerHTML = (storage.price);
+    order.appendChild(orderPrice);
+    
+    let orderPreview = document.getElementById("orderPreview");
+    orderPreview.appendChild(order);
 }

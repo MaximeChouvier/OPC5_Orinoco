@@ -4,29 +4,16 @@ request.onreadystatechange = function() {
         var response = JSON.parse(this.responseText); 
 
         injection(response);
-
-        
     }
 };
 function injection(response){
     let parentDiv = document.getElementById("javascript__injection");
     
-    let productContainer = document.createElement("div");
-    productContainer.className = ("productContainer");
-
-    let productContainer_upper = document.createElement("div");
-    productContainer_upper.className = ("productContainer_upper");
-
-    let lower = document.createElement("div");
-    lower.className = ("lower")
-
-    let upper_left = document.createElement("div")
-    upper_left.className = ("upper_left");
-
-    let upper_right = document.createElement("div");
-    upper_right.className = ("upper_right");
-
-    appendAllContainers(parentDiv, productContainer, productContainer_upper, lower, upper_left, upper_right);
+    let productContainer = document.getElementById("productContainer");
+    let productContainer_upper = document.getElementById("productContainer_upper");
+    let lower = document.getElementById("lower");
+    let upper_left = document.getElementById("upper_left");
+    let upper_right = document.getElementById("upper_right");
     createAllElements(response, upper_left, upper_right, lower);
 }
 function createAllElements(response, upper_left, upper_right, lower){          
@@ -105,21 +92,10 @@ function createButton(lower, productId){
         }
     });
 }
-function appendAllContainers(parentDiv, productContainer, productContainer_upper, lower, upper_left, upper_right){
-    parentDiv.appendChild(productContainer);
-    productContainer.appendChild(productContainer_upper);
-    productContainer.appendChild(lower);
-    productContainer_upper.appendChild(upper_left);
-    productContainer_upper.appendChild(upper_right);
-}
 function productDependingOnParameter(){
     let currentUrlParameter = window.location.search.substr(1);
     return currentUrlParameter;
 }
-
-let productId = productDependingOnParameter();
-sendRequest(request, productId);
-
 function sendRequest (request, productId){
     request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
     request.send();
@@ -146,3 +122,5 @@ function pushProductToStorage(productColor, productId, productPrice, productImag
 function redirectHome(){
     setTimeout(function(){document.location.href = "../index.html"},100);
 }
+let productId = productDependingOnParameter();
+sendRequest(request, productId);

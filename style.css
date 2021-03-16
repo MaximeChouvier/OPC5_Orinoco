@@ -79,7 +79,7 @@ body, html{
     margin: 5px;
 }
 /* Page produit */
-.productContainer_lower{
+#productContainer_lower{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -88,11 +88,11 @@ body, html{
     color: #55434d;
     font-size: 12px;
 }
-.productContainer_upper{
+#productContainer_upper{
     display: flex;
     justify-content: space-evenly;
 }
-.lower{
+#lower{
     display: flex;
     justify-content: space-around;
     align-items: center;

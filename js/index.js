@@ -6,8 +6,6 @@ request.onreadystatechange = function() {
         var response = JSON.parse(this.responseText);
 
         response.forEach(injectSingleItem);
-
-        
     };
 };
 function injectSingleItem(item){
