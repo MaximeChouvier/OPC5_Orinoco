@@ -1,3 +1,5 @@
+
+
 let items = JSON.parse(localStorage.getItem("Orinoco"));
 
 function makeOrdersPreview(items){
@@ -52,35 +54,160 @@ function appendOrderedItems(orderName, orderImg, orderPrice){
     order.appendChild(orderImg);
     order.appendChild(orderPrice);
 };
-
-makeOrdersPreview(items);
-
-makeForm();
-
 function makeForm(){
     reduceTotalPrice();
-    formInputValidation();
+    document.getElementById("orderButton").addEventListener("click", formInputValidation)
 };
-
 function reduceTotalPrice(){
     let form_priceTag = document.getElementById("orderTotalPrice");
     let finalPrice = 0;
     items.forEach(element => finalPrice += parseInt(element.price, 10));
     form_priceTag.innerHTML = finalPrice.toString().slice(0, -2) + "." + finalPrice.toString().slice(-2) + " €";
-
-
-
-
 };
-
 function formInputValidation(){
+    const onlyLettersRegex = /^[a-zA-Z-éÉàâäéèêëïîôöùûüÿç]+$/;
+    const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/;
+    const emailRegex = /\S+@\S+\.\S+/;
+    
+    let firstNameResult = isForm_firstNameValid(onlyLettersRegex);
+    let lastNameResult = isForm_lastNameValid(onlyLettersRegex);
+    let adressResult = isForm_adressValid(adressRegex);
+    let cityResult = isForm_cityValid(onlyLettersRegex);
+    let email_result = isForm_emailValid(emailRegex);
 
+    if (firstNameResult == true && lastNameResult == true && adressResult == true && cityResult == true && email_result == true){
+        console.log("tout est cool")
+        finaliseOrder()
+    } else {
+        console.log("nightmare")
+        window.alert("Veuillez remplir correctement le formulaire")
+    }
 };
+function isForm_firstNameValid(onlyLettersRegex){
+    let form_firstName = document.getElementById("firstName");
+    let firstNameResult = onlyLettersRegex.test(form_firstName.value)
+    if (firstNameResult == true){
+        return true;
+    } else {
+        console.log("firstName : pas cool")
+    }
+};
+function isForm_lastNameValid(onlyLettersRegex){
+    let form_lastName = document.getElementById("lastName");
+    let lastNameResult = onlyLettersRegex.test(form_lastName.value)
+    if (lastNameResult == true){
+        return true;
+    } else {
+        console.log("lastName : pas cool")
+    }
+};
+function isForm_adressValid(adressRegex){
+    let form_adress = document.getElementById("adress");
+    let adressResult = adressRegex.test(form_adress.value)
+    if (adressResult == true){
+        return true;
+    } else {
+        console.log("adress : pas cool")
+    }
+};
+function isForm_cityValid(onlyLettersRegex){
+    let form_city = document.getElementById("city");
+    let cityResult = onlyLettersRegex.test(form_city.value)
+    if (cityResult == true){
+        return true;
+    } else {
+        console.log("city : pas cool")
+    }
+};
+function isForm_emailValid(emailRegex){
+    let form_email = document.getElementById("mail");
+    let emailResult = emailRegex.test(form_email.value)
+    if (emailResult == true){
+        return true;
+    } else {
+        console.log("email : pas cool")
+    }
+};
+function finaliseOrder(){
+    const axios = require('axios').default;
+    let totalPrice = document.getElementById("orderTotalPrice").innerHTML;
+    let orderInfo = makeOrderInfo();
+
+    console.log(orderInfo)
+
+    axios.post('http://localhost:3000/api/teddies/order', {
+        orderInfo
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
+function makeOrderInfo(){
+    let form_firstName = document.getElementById("firstName");
+    let form_lastName = document.getElementById("lastName");
+    let form_adress = document.getElementById("adress");
+    let form_city = document.getElementById("city");
+    let form_email = document.getElementById("mail");
+
+    let orderedArticles = [];
+    items.forEach(element => {
+        let products_id = element.id
+        orderedArticles.push(products_id);
+    })
+
+    const orderInfo = {
+        "contact": {
+            "firstName": form_firstName.value,
+            "lastName": form_lastName.value,
+            "adress": form_adress.value,
+            "city": form_city.value,
+            "email": form_email.value
+        },
+        "products": orderedArticles
+    }
+
+    return orderInfo;
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+makeOrdersPreview(items);
+
+makeForm();
 
 // localStorage.clear();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // let storage = JSON.parse(localStorage.getItem("Orinoco"));
 // console.log (storage);
@@ -146,15 +273,15 @@ function formInputValidation(){
 //     form_email.addEventListener("change", isFormValid);
 
 //     function isFormValid(){
-//         let form_firstName = document.getElementById("firstName");
-//         let form_lastName = document.getElementById("lastName");
-//         let form_adress = document.getElementById("adress");
-//         let form_city = document.getElementById("city");
-//         let form_email = document.getElementById("mail");
+        // let form_firstName = document.getElementById("firstName");
+        // let form_lastName = document.getElementById("lastName");
+        // let form_adress = document.getElementById("adress");
+        // let form_city = document.getElementById("city");
+        // let form_email = document.getElementById("mail");
         
-//         const onlyLettersRegex = /^[a-zA-Z-éÉàâäéèêëïîôöùûüÿç]+$/;
-//         const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/;
-//         const emailRegex = /\S+@\S+\.\S+/;
+        // const onlyLettersRegex = /^[a-zA-Z-éÉàâäéèêëïîôöùûüÿç]+$/;
+        // const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/;
+        // const emailRegex = /\S+@\S+\.\S+/;
 
 //         let firstName_result = onlyLettersRegex.test(form_firstName.value);
 //         let lastName_result = onlyLettersRegex.test(form_lastName.value);
