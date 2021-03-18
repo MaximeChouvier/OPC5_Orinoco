@@ -1,12 +1,11 @@
-function getItems(){
-    let items = JSON.parse(localStorage.getItem("Orinoco"));
-    console.log(items) 
+let items = JSON.parse(localStorage.getItem("Orinoco"));
+
+function makeOrdersPreview(items){
+    
     if (items == null){
         handleEmptyBasket();
     } else {
-     for (var i = 0; i < items.length; i++) {
-        createOrderPreview(items)
-     }
+        items.forEach(createOrders);
     }
 }
 function handleEmptyBasket(){
@@ -18,53 +17,70 @@ function handleEmptyBasket(){
     emptyBasket_small.hidden = false;
     orderForm.hidden = true;
 }
-function createOrderPreview(items){
-createOrderName(items);
-createOrderImg(items);
-createOrderPrice(items);
+function createOrders(item){
+const orderName = createOrderName(item);
+const orderImg = createOrderImg(item);
+const orderPrice = createOrderPrice(item);
 
-appendOrderedItems(createOrderName, createOrderImg, createOrderPrice);
+appendOrderedItems(orderName, orderImg, orderPrice);
 }
-function createOrderName(items){
+function createOrderName(item){
     let orderName = document.createElement("h1");
     orderName.className = "orderPreview_name font";
-    orderName.innerHTML = (items.name + (" (") + (items.color) + (")"));
+    orderName.innerHTML = (item.name + (" (") + (item.color) + (")"));
     return orderName;
 }
-function createOrderImg(items){
+function createOrderImg(item){
     let orderImg = document.createElement("img");
     orderImg.className = "orderPreview_image";
-    orderImg.src = (items.image);
+    orderImg.src = (item.image);
     return orderImg;
 };
-function createOrderPrice(items){
+function createOrderPrice(item){
     let orderPrice = document.createElement("h2");
     orderPrice.className = "orderPreview_price font";
-    orderPrice.innerHTML = (items.price);
+    orderPrice.innerHTML = (item.price);
     return orderPrice;
 };
-function appendOrderedItems(items){
+function appendOrderedItems(orderName, orderImg, orderPrice){
     let orderPreview = document.getElementById("orderPreview");
     let order = document.createElement("div");
     order.className = "order";
 
     orderPreview.appendChild(order)
-    order.appendChild(createOrderName(items));
-    order.appendChild(createOrderImg(items));
-    order.appendChild(createOrderPrice(items));
+    order.appendChild(orderName);
+    order.appendChild(orderImg);
+    order.appendChild(orderPrice);
 };
 
-getItems();
+makeOrdersPreview(items);
+
+makeForm();
+
+function makeForm(){
+    reduceTotalPrice();
+    formInputValidation();
+};
+
+function reduceTotalPrice(){
+    let form_priceTag = document.getElementById("orderTotalPrice");
+    let finalPrice = 0;
+    items.forEach(element => finalPrice += parseInt(element.price, 10));
+    form_priceTag.innerHTML = finalPrice.toString().slice(0, -2) + "." + finalPrice.toString().slice(-2) + " €";
+
+
+
+
+};
+
+function formInputValidation(){
+
+};
+
+
+
 
 // localStorage.clear();
-
-
-
-
-
-
-
-
 
 // let storage = JSON.parse(localStorage.getItem("Orinoco"));
 // console.log (storage);
