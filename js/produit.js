@@ -8,7 +8,6 @@ request.onreadystatechange = function() {
 };
 function injection(response){
     let parentDiv = document.getElementById("javascript__injection");
-    
     let productContainer = document.getElementById("productContainer");
     let productContainer_upper = document.getElementById("productContainer_upper");
     let lower = document.getElementById("lower");

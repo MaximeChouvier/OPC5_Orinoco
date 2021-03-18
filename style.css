@@ -122,32 +122,6 @@ body, html{
     color: #175676;
     font-size: 17px;
 }
-#orderFinalisation{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-.orderPrice{
-    color: #4DA89F;
-    font-size: 22px;
-}
-#orderButton:enabled{
-    height: 40px;
-    width: 100px;
-    color: #fff;
-    background-color:#017567;
-    border-radius:28px;
-    border:1px solid #017567;
-}
-#orderButton:disabled{
-    height: 40px;
-    width: 100px;
-    color: #fff;
-    background-color:#063832;
-    border-radius:28px;
-    border:1px solid #063832;
-}
 #orderForm{
     border: #3e2a35 2px solid;
     border-radius: 5%;
@@ -168,6 +142,32 @@ body, html{
 }
 .emptyBasket_small{
     color: #3e2a35;
+}
+.form_lower{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+#orderTotalPrice{
+    color: #4DA89F;
+    font-size: 22px;
+}
+#orderButton:enabled{
+    height: 40px;
+    width: 100px;
+    color: #fff;
+    background-color:#017567;
+    border-radius:28px;
+    border:1px solid #017567;
+}
+#orderButton:disabled{
+    height: 40px;
+    width: 100px;
+    color: #fff;
+    background-color:#063832;
+    border-radius:28px;
+    border:1px solid #063832;
 }
 /* Page Confirmation */
 .confirm_wrapper{

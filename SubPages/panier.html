@@ -24,7 +24,16 @@
         </h1>
         
         <div id="javascript_injection">
+            <h2 id="emptyBasket_title" class="centered font" hidden>
+                Malheureusement votre panier est vide
+            </h2>
+            <p id="emptyBasket_small" class="centered font" hidden>
+                Veuillez ajouter des articles au panier avant de pouvoir passer commande
+            </p>
+        </div>
 
+        <div id="orderPreview">
+            
         </div>
         
             <!-- <div id="orderPreview">
@@ -60,6 +69,15 @@
 
                     <h2 class="font orderForm_text">Email & Finalisation</h2>
                     <input type="email" id="mail" name="user_mail" placeholder="Email" class="font emailInput" required>
+
+                    <div class="form_lower">
+                        <h1 id="orderTotalPrice" class="font">
+                            1234 €
+                        </h1>
+                        <button id="orderButton" class="font" type="button" >
+                            Passer la commande
+                        </button>
+                    </div>
                 </div>
                 <!-- <div id="orderFinalisation">
                     <h1 class="orderPrice font">
