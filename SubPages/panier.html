@@ -7,6 +7,7 @@
     </header>
 
     <head>
+        <script src="../node_modules/axios/dist/axios.min.js"></script>
         <nav id="navbar">
             <a class="navlink" href="../index.html">
                 <img src="../images/Logo.png"  id="logo">
@@ -18,7 +19,7 @@
     </head>
 
     <body>
-        
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <h1 class="headTitle font centered">
             Panier
         </h1>
@@ -35,28 +36,6 @@
         <div id="orderPreview">
             
         </div>
-        
-            <!-- <div id="orderPreview">
-                <div class="order">
-                    <img src="https://via.placeholder.com/100" class="orderPreview_image">
-                    <h1 class="orderPreview_name font">ProductName</h1>
-                    <h2 class="orderPreview_price font">2306 €</h2>
-                </div>
-                <div class="order">
-                    <img src="https://via.placeholder.com/100" class="orderPreview_image">
-                    <h1 class="orderPreview_name font">ProductName</h1>
-                    <h2 class="orderPreview_price font">2306 €</h2>
-                </div>
-                <div class="order">
-                    <img src="https://via.placeholder.com/100" class="orderPreview_image">
-                    <h1 class="orderPreview_name font">ProductName</h1>
-                    <h2 class="orderPreview_price font">2306 €</h2>
-                </div>
-            </div> -->
-
-            <!-- <h2 class="emptyBasket centered font">Malheureusement vôtre panier est vide</h2>
-            <p class="emptyBasket_small centered font">Veuillez ajouter des articles au panier avant de pouvoir passer commande</p> -->
-
             <form method="post" id="orderForm">
                 <div class="formWrapper centered">
                     <h2 class="font orderForm_text">Nom & Prénom</h2>
@@ -72,23 +51,14 @@
 
                     <div class="form_lower">
                         <h1 id="orderTotalPrice" class="font">
-                            1234 €
+
                         </h1>
                         <button id="orderButton" class="font" type="button" >
                             Passer la commande
                         </button>
                     </div>
                 </div>
-                <!-- <div id="orderFinalisation">
-                    <h1 class="orderPrice font">
-                        Total : 123 €
-                    </h1>
-                    <button type="submit" class="orderButton font">
-                        Passer la commande
-                    </button>
-                </div> -->
             </form>
-            
         </section>
         <script type="text/javascript" src="../js/panier.js"></script>
     </body>

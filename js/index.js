@@ -57,9 +57,14 @@ function itemTitle(item, rightWrapper){
 function itemPrice(item, rightWrapper){
     let itemPrice = document.createElement("h2");
     itemPrice.className = "productPrice underline font teddyPrice centered";
-    itemPrice.innerHTML = item.price + " €";
+    itemPrice.innerHTML = dotPrice(item);
     rightWrapper.appendChild(itemPrice);
 };
+function dotPrice(item){
+    let item_price = item.price.toString();
+    let result = item_price.slice(0, -2) + "." + item_price.slice(-2) + " €";
+    return(result)
+}
 function itemDescription(item, rightWrapper){
     let itemDescription = document.createElement('p');
     itemDescription.innerHTML = item.description;

@@ -1,29 +1,18 @@
-let storage = JSON.parse(localStorage.getItem("Orinoco_order"))
+let orderInfo = JSON.parse(localStorage.getItem("Orinoco_confirm"));
 
-createAllElements(storage)
-
-function createAllElements(storage){
-    createOrderConfirmation(storage);
-    createOrderInfo(storage);
+if (orderInfo == null) {
+    redirectHome();
+} else {
+    createOrderInfo(orderInfo);
     localStorage.clear()
 }
-function createOrderConfirmation(storage){
-    let parentDiv = document.getElementById("javascript_injection");
+function createOrderInfo(){
+    let orderPrice = document.getElementById("confirm_orderPrice");
+    orderPrice.innerHTML = orderInfo.price;
 
-    let confirmPreview = document.createElement("section");
-    confirmPreview.id = "confirm_preview";
-    parentDiv.appendChild(confirmPreview);
-}
-function createOrderInfo(storage){
-    let orderContainer = document.getElementById("confirm_preview");
-
-    let orderPrice = document.createElement("h3");
-    orderPrice.className = "confirm_orderPrice font centered";
-    orderPrice.innerHTML = "Total : " + storage.price + " €";
-    orderContainer.appendChild(orderPrice);
-
-    let orderId_preview = document.createElement("h4");
-    orderId_preview.className = "confirm_orderId font centered";
-    orderId_preview.innerHTML = "ID de commande : " + storage.id;
-    orderContainer.appendChild(orderId_preview);
+    let orderId = document.getElementById("confirm_orderId");
+    orderId.innerHTML = orderInfo.id;
+};
+function redirectHome(){
+    setTimeout(function(){document.location.href = "../index.html"},1);
 }

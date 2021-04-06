@@ -68,8 +68,13 @@ function createPrice(response, lower){
     let productPrice = document.createElement("h2");
     productPrice.className = "productPrice font";
     productPrice.id = "teddyPrice";
-    productPrice.innerHTML = response.price + " €"
+    productPrice.innerHTML = dotPrice(response);
     lower.appendChild(productPrice);
+}
+function dotPrice(response){
+    let item_price = response.price.toString();
+    let result = item_price.slice(0, -2) + "." + item_price.slice(-2) + " €";
+    return(result)
 }
 function createButton(lower, productId){
     let cartButton = document.getElementById("addCartButton");
