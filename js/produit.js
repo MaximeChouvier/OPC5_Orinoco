@@ -1,3 +1,4 @@
+// Ouvre une requête à l'API, puis récupére la réponse dans "response"
 var request = new XMLHttpRequest();
 request.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
@@ -6,15 +7,15 @@ request.onreadystatechange = function() {
         injection(response);
     }
 };
+//Récupére les divs parentes puis fait appel à createAllElements
 function injection(response){
-    let parentDiv = document.getElementById("javascript__injection");
-    let productContainer = document.getElementById("productContainer");
-    let productContainer_upper = document.getElementById("productContainer_upper");
     let lower = document.getElementById("lower");
     let upper_left = document.getElementById("upper_left");
     let upper_right = document.getElementById("upper_right");
     createAllElements(response, upper_left, upper_right, lower);
 }
+//Initialise un array contenant tout les choix de couleurs du produit
+//Fait appel aux fonctions qui créeront les éléments du produit sélectionné
 function createAllElements(response, upper_left, upper_right, lower){          
     let colorList = [];
     colorList = response.colors;
@@ -26,6 +27,7 @@ function createAllElements(response, upper_left, upper_right, lower){
     createPrice(response, lower);
     createButton(lower)
 }
+
 function createPreview(response, upper_left){
     let productPreview = document.createElement("img");
     productPreview.className = "productPreview centered";
@@ -33,6 +35,7 @@ function createPreview(response, upper_left){
     productPreview.src = response.imageUrl;
     upper_left.appendChild(productPreview);
 }
+
 function createTitle(response, upper_right){
     let productTitle = document.createElement("h1");
     productTitle.className = "productTitle underline font teddyName centered";
@@ -40,12 +43,14 @@ function createTitle(response, upper_right){
     productTitle.id = "productName";
     upper_right.appendChild(productTitle);
 }
+
 function createDescription(response, upper_right){
     let productDescription = document.createElement('p');
     productDescription.innerHTML = response.description;
     productDescription.className = 'productDescription underline font teddyDesc centered';
     upper_right.appendChild(productDescription);
 }
+//Crée une liste déroulante contenant les options de customisations propre au produit
 function createColorsChoices(colorList, lower){
     let productForm = document.createElement("form");
     lower.appendChild(productForm);
@@ -64,6 +69,7 @@ function createColorsChoices(colorList, lower){
         colorSelect.appendChild(colorSelect_option);
     }
 }
+
 function createPrice(response, lower){
     let productPrice = document.createElement("h2");
     productPrice.className = "productPrice font";
@@ -71,16 +77,20 @@ function createPrice(response, lower){
     productPrice.innerHTML = dotPrice(response);
     lower.appendChild(productPrice);
 }
+//Pour plus de clartée, crée un prix comportant un point afin d'afficher les centimes, ex : "3900" devient "39.00 €"
 function dotPrice(response){
     let item_price = response.price.toString();
     let result = item_price.slice(0, -2) + "." + item_price.slice(-2) + " €";
     return(result)
 }
+
 function createButton(lower, productId){
     let cartButton = document.getElementById("addCartButton");
     cartButton.href = "./panier.html";
     lower.appendChild(cartButton);
 
+    //Lors du click sur le bouton, récupère ; la couleur sélectionnée - son ID - son prix - la src de son image - et son nom,
+    //puis fait appel à pushProductToStorage
     document.getElementById("addCartButton").addEventListener("click", function() {
         let productColor = document.getElementById("colorChoices");
         let productId = window.location.search.substr(1);
@@ -96,35 +106,41 @@ function createButton(lower, productId){
         }
     });
 }
-function productDependingOnParameter(){
-    let currentUrlParameter = window.location.search.substr(1);
-    return currentUrlParameter;
-}
-function sendRequest (request, productId){
-    request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
-    request.send();
-}
+//Si le localStorage est vide ou n'existe pas, en crée un puis ajoute un objet contenant;  
+//l'id du produit - la couleur choisie - son prix - la src de son image et son nom au localStorage 'Orinoco'
 function handleNullStorage(productColor, productId, productPrice, productImage, productName){
     let storage = [];
     let newObj = {id:productId, color:productColor.value, 
     price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
     storage.push(newObj);
-    console.log(storage);
     localStorage.setItem("Orinoco", (JSON.stringify(storage)));
     window.alert("L'objet à bien été ajouté au panier :)")
     redirectHome();
 }
+//Crée puis ajoute au localStorage un objet contenant; 
+//l'id du produit - la couleur choisie - son prix - la src de son image et son nom au localStorage 'Orinoco'
 function pushProductToStorage(productColor, productId, productPrice, productImage, productName, storage){
     let newObj = {id:productId, color:productColor.value, 
     price:productPrice.innerHTML, image:productImage.src, name:productName.innerHTML}
     storage.push(newObj);
-    console.log(storage)
     localStorage.setItem("Orinoco", (JSON.stringify(storage)));
     window.alert("L'objet à bien été ajouté au panier :)")
     redirectHome();
 }
+
 function redirectHome(){
     setTimeout(function(){document.location.href = "../index.html"},100);
 }
+//Récupère l'ID du produit voulu qui est contenu en paramètre URL
+function productDependingOnParameter(){
+    let currentUrlParameter = window.location.search.substr(1);
+    return currentUrlParameter;
+}
+
+function sendRequest (request, productId){
+    request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
+    request.send();
+}
+
 let productId = productDependingOnParameter();
 sendRequest(request, productId);

@@ -1,13 +1,18 @@
 let items = JSON.parse(localStorage.getItem("Orinoco"));
 
+makeOrdersPreview(items);
+
+makeForm();
+//Vérifie si le panier est vide, si c'est le cas la fonction handleEmptyBasket est appelée
+//Sinon appelle createOrders pour chaque article dans le panier
 function makeOrdersPreview(items){
-    
     if (items == null){
         handleEmptyBasket();
     } else {
         items.forEach(createOrders);
     }
 }
+//Cache le formulaire et notifie l'utilisateur que le panier est vide
 function handleEmptyBasket(){
     let emptyBasket_title = document.getElementById("emptyBasket_title");
     let emptyBasket_small = document.getElementById("emptyBasket_small");
@@ -17,6 +22,8 @@ function handleEmptyBasket(){
     emptyBasket_small.hidden = false;
     orderForm.hidden = true;
 }
+//Apelle les fonctions qui suivent afin d'injecter dynamiquement les
+//éléments visuels de chaque article (nom, image et prix)
 function createOrders(item){
     const orderName = createOrderName(item);
     const orderImg = createOrderImg(item);
@@ -41,6 +48,7 @@ function createOrderPrice(item){
     orderPrice.innerHTML = (item.price);
     return orderPrice;
 };
+//Append tout les élements injectés précédemment dans un container "order"
 function appendOrderedItems(orderName, orderImg, orderPrice){
     let orderPreview = document.getElementById("orderPreview");
     let order = document.createElement("div");
@@ -55,15 +63,22 @@ function makeForm(){
     reduceTotalPrice();
     document.getElementById("orderButton").addEventListener("click", formInputValidation)
 };
+//Récupère le prix de chaque article dans le panier, fait un total de ces sommes, le convertis en string puis ajoute un point
+//pour afficher les centimes et éviter une confusion dans le prix. 
+//Exemple : "4800" devient "48.00 €"
 function reduceTotalPrice(){
     let form_priceTag = document.getElementById("orderTotalPrice");
     let finalPrice = 0;
     items.forEach(element => finalPrice += parseInt(element.price, 10));
     form_priceTag.innerHTML = finalPrice.toString() + ".00 €";
 };
+//Déclare des regExp pour diffèrents inputs en fonctions de leurs besoins en termes de validation.
 function formInputValidation(){
+    //en comparant onlyLettersRegex à l'input utilisateur, seul une chaîne de caractères correspondante à la suivante seras validée.
     const onlyLettersRegex = /^[a-zA-Z-éÉàâäéèêëïîôöùûüÿç]+$/;
+    //en comparant adressRegex à l'input utilisateur, seul un input qui commence par un numéro de voie suivie par un nom de voie composé des caractères suivants seras validée.
     const adressRegex = /^[0-9a-zA-Z-éÉàâäéèêëïîôöùûüÿç\ ]+/;
+    //en comparant emailRegex à l'input utilisateur, seul un input suivant ces format ; "lucie@mail.com - lucie.petit@example.com - lucie95.escargot@caramel.com ect..." 
     const emailRegex = /\S+@\S+\.\S+/;
     
     let firstNameResult = isForm_firstNameValid(onlyLettersRegex);
@@ -73,10 +88,8 @@ function formInputValidation(){
     let email_result = isForm_emailValid(emailRegex);
 
     if (firstNameResult == true && lastNameResult == true && adressResult == true && cityResult == true && email_result == true){
-        console.log("tout est cool")
         finaliseOrder()
     } else {
-        console.log("nightmare")
         window.alert("Veuillez remplir correctement le formulaire")
     }
 };
@@ -86,7 +99,7 @@ function isForm_firstNameValid(onlyLettersRegex){
     if (firstNameResult == true){
         return true;
     } else {
-        console.log("firstName : pas cool")
+
     }
 };
 function isForm_lastNameValid(onlyLettersRegex){
@@ -95,7 +108,7 @@ function isForm_lastNameValid(onlyLettersRegex){
     if (lastNameResult == true){
         return true;
     } else {
-        console.log("lastName : pas cool")
+
     }
 };
 function isForm_adressValid(adressRegex){
@@ -104,7 +117,7 @@ function isForm_adressValid(adressRegex){
     if (adressResult == true){
         return true;
     } else {
-        console.log("adress : pas cool")
+
     }
 };
 function isForm_cityValid(onlyLettersRegex){
@@ -113,7 +126,7 @@ function isForm_cityValid(onlyLettersRegex){
     if (cityResult == true){
         return true;
     } else {
-        console.log("city : pas cool")
+
     }
 };
 function isForm_emailValid(emailRegex){
@@ -122,20 +135,41 @@ function isForm_emailValid(emailRegex){
     if (emailResult == true){
         return true;
     } else {
-        console.log("email : pas cool")
+
     }
 };
+//Récupère les informations nécessaire puis effectue une requête post.
 function finaliseOrder(){
     let orderInfo = makeOrderInfo();
 
-    axios.post('http://localhost:3000/api/teddies/order', orderInfo)
-      .then(function (response) {
-          let orderId = (response.data.orderId)
-        getConfirmData(orderId)
-      })
-      .catch(function (error) {
+    const url = "http://localhost:3000/api/teddies/order";
+    fetch(url, {
+        method : "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body : JSON.stringify(orderInfo),
+    })
+    .then(function (response) {
+        console.log(response)
+        // let orderId = (response.data.orderId)
+        // getConfirmData(orderId)
+    })
+    .then(function (response) {
+        console.log(response)
+    })
+    .catch(function (error) {
         console.log(error);
-      });
+    });
+
+    // axios.post('http://localhost:3000/api/teddies/order', orderInfo)
+    //   .then(function (response) {
+    //     let orderId = (response.data.orderId)
+    //     getConfirmData(orderId)
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 }
 function makeOrderInfo(){
     let form_firstName = document.getElementById("firstName");
@@ -162,6 +196,7 @@ function makeOrderInfo(){
     }
     return orderInfo;
 }
+//Crée un object contenant le prix total et l'ID de commande puis le stock dans le localStorage.
 function getConfirmData(orderId){
     let totalPrice = document.getElementById("orderTotalPrice").innerHTML;
     let confirmData = {price:totalPrice, id:orderId};
@@ -171,6 +206,3 @@ function getConfirmData(orderId){
 function redirectOrderConfirmation(){
     setTimeout(function(){document.location.href = "../SubPages/confirmation.html"},200);
 }
-makeOrdersPreview(items);
-
-makeForm();
