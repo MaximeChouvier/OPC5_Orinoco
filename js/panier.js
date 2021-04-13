@@ -72,6 +72,7 @@ function reduceTotalPrice(){
     items.forEach(element => finalPrice += parseInt(element.price, 10));
     form_priceTag.innerHTML = finalPrice.toString() + ".00 €";
 };
+
 //Déclare des regExp pour diffèrents inputs en fonctions de leurs besoins en termes de validation.
 function formInputValidation(){
     //en comparant onlyLettersRegex à l'input utilisateur, seul une chaîne de caractères correspondante à la suivante seras validée.
@@ -149,27 +150,15 @@ function finaliseOrder(){
             'Content-Type': 'application/json',
         },
         body : JSON.stringify(orderInfo),
+    }).then(response => {
+        return response.json();
+    }).then(jsonResponse => {
+        console.log(jsonResponse)
+        let orderId = (jsonResponse.orderId)
+        getConfirmData(orderId)
+    }).catch (error => {
+        console.log(error)
     })
-    .then(function (response) {
-        console.log(response)
-        // let orderId = (response.data.orderId)
-        // getConfirmData(orderId)
-    })
-    .then(function (response) {
-        console.log(response)
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-
-    // axios.post('http://localhost:3000/api/teddies/order', orderInfo)
-    //   .then(function (response) {
-    //     let orderId = (response.data.orderId)
-    //     getConfirmData(orderId)
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
 }
 function makeOrderInfo(){
     let form_firstName = document.getElementById("firstName");
