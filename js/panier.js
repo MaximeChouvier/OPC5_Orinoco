@@ -72,7 +72,6 @@ function reduceTotalPrice(){
     items.forEach(element => finalPrice += parseInt(element.price, 10));
     form_priceTag.innerHTML = finalPrice.toString() + ".00 €";
 };
-
 //Déclare des regExp pour diffèrents inputs en fonctions de leurs besoins en termes de validation.
 function formInputValidation(){
     //en comparant onlyLettersRegex à l'input utilisateur, seul une chaîne de caractères correspondante à la suivante seras validée.

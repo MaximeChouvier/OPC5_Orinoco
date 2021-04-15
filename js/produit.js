@@ -20,8 +20,8 @@ function createAllElements(response, upper_left, upper_right, lower){
     let colorList = [];
     colorList = response.colors;
 
-    createPreview(response, upper_left);
     createTitle(response, upper_right);
+    createPreview(response, upper_left);
     createDescription(response, upper_right);
     createColorsChoices(colorList, lower);
     createPrice(response, lower);
@@ -84,7 +84,7 @@ function dotPrice(response){
     return(result)
 }
 
-function createButton(lower, productId){
+function createButton(lower){
     let cartButton = document.getElementById("addCartButton");
     cartButton.href = "./panier.html";
     lower.appendChild(cartButton);
