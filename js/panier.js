@@ -3,6 +3,7 @@ let items = JSON.parse(localStorage.getItem("Orinoco"));
 makeOrdersPreview(items);
 
 makeForm();
+
 //Vérifie si le panier est vide, si c'est le cas la fonction handleEmptyBasket est appelée
 //Sinon appelle createOrders pour chaque article dans le panier
 function makeOrdersPreview(items){
