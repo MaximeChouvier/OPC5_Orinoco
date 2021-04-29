@@ -160,6 +160,7 @@ function finaliseOrder(){
         console.log(error)
     })
 }
+
 function makeOrderInfo(){
     let form_firstName = document.getElementById("firstName");
     let form_lastName = document.getElementById("lastName");

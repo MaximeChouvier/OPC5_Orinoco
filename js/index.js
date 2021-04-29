@@ -1,15 +1,14 @@
 // Ouvre une requête à l'API, puis récupére la réponse dans "response"
-var request = new XMLHttpRequest();
-request.onreadystatechange = function() {
+function getRequest(){
     
-        
-    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-           
-        var response = JSON.parse(this.responseText);
-        response.forEach(injectSingleItem);
-    };
-        
-    };
+    const fetchPromise = fetch("http://localhost:3000/api/teddies");
+    fetchPromise.then(response => {
+      return response.json();
+    }).then(teddies => {
+      let response = teddies;
+      response.forEach(injectSingleItem)
+    });
+}
 
 //Récupère "javascript__injection" pour injecter par la suite la liste des produits.
 function injectSingleItem(item){
@@ -46,10 +45,10 @@ function createRightWrapper(parentDiv){
 }
 //Fait appel aux fonctions qui créeront les éléments d'un produits
 function createAllElements(item, leftWrapper, rightWrapper) {
+    itemImage(item, leftWrapper);
     itemTitle(item, rightWrapper);
     itemPrice(item, rightWrapper);
     itemDescription(item, rightWrapper);
-    itemImage(item, leftWrapper);
     itemCustomChoices(item, rightWrapper);
 };
 //Obtient et crée l'image d'un produit
@@ -94,5 +93,5 @@ function itemCustomChoices(item, parentDiv){
     parentDiv.appendChild(itemCustomChoices);
 };
 //Ouvre la requête, puis l'envoie
-request.open("GET", "http://localhost:3000/api/teddies");
-request.send();
+// request.open("GET", "http://localhost:3000/api/teddies");
+// request.send();

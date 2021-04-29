@@ -1,12 +1,14 @@
-// Ouvre une requête à l'API, puis récupére la réponse dans "response"
-var request = new XMLHttpRequest();
-request.onreadystatechange = function() {
-    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-        var response = JSON.parse(this.responseText); 
+function sendRequest (){
+    let productId = "http://localhost:3000/api/teddies/" + window.location.search.substr(1);
 
-        injection(response);
-    }
-};
+    const fetchPromise = fetch(productId);
+    fetchPromise.then(response => {
+    return response.json();
+    }).then(teddies => {
+    let response = teddies;
+    injection(response);
+    });
+}
 //Récupére les divs parentes puis fait appel à createAllElements
 function injection(response){
     let lower = document.getElementById("lower");
@@ -28,20 +30,20 @@ function createAllElements(response, upper_left, upper_right, lower){
     createButton(lower)
 }
 
-function createPreview(response, upper_left){
-    let productPreview = document.createElement("img");
-    productPreview.className = "productPreview centered";
-    productPreview.id = "productImage";
-    productPreview.src = response.imageUrl;
-    upper_left.appendChild(productPreview);
-}
-
 function createTitle(response, upper_right){
     let productTitle = document.createElement("h1");
     productTitle.className = "productTitle underline font teddyName centered";
     productTitle.innerHTML = response.name;
     productTitle.id = "productName";
     upper_right.appendChild(productTitle);
+}
+
+function createPreview(response, upper_left){
+    let productPreview = document.createElement("img");
+    productPreview.className = "productPreview centered";
+    productPreview.id = "productImage";
+    productPreview.src = response.imageUrl;
+    upper_left.appendChild(productPreview);
 }
 
 function createDescription(response, upper_right){
@@ -97,6 +99,7 @@ function createButton(lower){
         let productPrice = document.getElementById("teddyPrice");
         let productImage = document.getElementById("productImage")
         let productName = document.getElementById("productName");
+        
         let storage = JSON.parse(localStorage.getItem("Orinoco"));
         
         if (storage == null){
@@ -131,16 +134,3 @@ function pushProductToStorage(productColor, productId, productPrice, productImag
 function redirectHome(){
     setTimeout(function(){document.location.href = "../index.html"},100);
 }
-//Récupère l'ID du produit voulu qui est contenu en paramètre URL
-function productDependingOnParameter(){
-    let currentUrlParameter = window.location.search.substr(1);
-    return currentUrlParameter;
-}
-
-function sendRequest (request, productId){
-    request.open("GET", "http://localhost:3000/api/teddies/" + productId.toString());
-    request.send();
-}
-
-let productId = productDependingOnParameter();
-sendRequest(request, productId);
